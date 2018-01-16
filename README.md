@@ -65,7 +65,7 @@ cd /path/to/magento
 cd /tmp && wget https://github.com/reverbdotcom/reverb-magento-2/archive/1.0.1.tar.gz
 
 # Unzip the release
-tar zxvf reverb-magneto2-1.0.1.tar.gz //this will depend on repo name
+tar zxvf reverb-magneto-2-1.0.1.tar.gz //this will depend on repo name
 
 # Copy everything from the app folder into your magento app
 rsync -avzp reverb-magento-2-1.0.1/* /path/to/magento/app/code/
