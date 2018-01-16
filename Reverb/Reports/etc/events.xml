@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="reverb_listing_synced">
+        <observer name="record_listing_observer_report" instance="\Reverb\Reports\Observer\ListingReport"/>
+    </event>
+</config>

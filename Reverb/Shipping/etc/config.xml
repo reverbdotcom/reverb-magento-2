@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+    <default>
+        <carriers>
+            <reverbshipping>
+                <active>1</active>
+                <sallowspecific>0</sallowspecific>
+                <model>Reverb\Shipping\Model\Carrier\Reverb</model>
+                <name>Reverb Shipping</name>
+                <title>Reverb Shipping</title>
+                <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+            </reverbshipping>
+        </carriers>
+    </default>
+</config>

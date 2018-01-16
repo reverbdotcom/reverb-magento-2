@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="reverb_tab" translate="label" sortOrder="1000">
+            <label>Reverb</label>
+        </tab>
+        <section id="ReverbSync" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Reverb Configuration</label>
+            <tab>reverb_tab</tab>
+            <resource>Reverb_ReverbSync::config</resource>
+            <group id="extensionOption_group" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Reverb Extension</label>
+                <field id="module_select" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Reverb Module:</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Select Yes/No to enable/disable module</comment>
+                </field>
+                <field id="enable_logging" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Logging for Reverb Module:</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Select Yes/No to enable/disable logging for the Reverb module</comment>
+                </field>
+            </group>
+            <group id="extension" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Reverb Connection</label>
+                <field id="revurl" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reverb Sync Destination (Production/Sandbox)</label>
+                    <source_model>Reverb\ReverbSync\Model\Source\Revurl</source_model>
+                    <validate>input-text required-entry</validate>
+                    <comment>Set to Sandbox to test your extension without affecting your live listings. Note: fake orders will be synced from Sandbox if you have Order sync enabled.</comment>
+                </field>
+                <field id="api_token" translate="label" type="password" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Token</label>
+                    <validate>input-text required-entry</validate>
+                    <comment>From https://reverb.com/my/api_settings</comment>
+                </field>
+                <!-- <field id="revUrl" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reverb URL</label>
+                    <comment>For Production mode : https://reverb.com</comment>
+                </field> -->
+            </group>
+
+            <group id="reverbDefault" translate="label" type="text" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Reverb Default</label>
+                <field id="enable_listing_creation" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Listing Creation</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="require_reverb_category_definition" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Require Reverb Category Definition</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>required-entry</validate>
+                    <comment>If set to Yes, products which are not included in a Magento category which has been mapped to a Reverb category can not be synced to Reverb.</comment>
+                </field>
+                 <field id="revInvent" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Inventory Tracking</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>input-text required-entry</validate>
+                    <comment>If no, all inventory will be set to 1</comment>
+                </field>
+                 <field id="revCond" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Item Condition</label>
+                    <source_model>Reverb\ReverbSync\Model\Source\Listing\Condition</source_model>
+                </field>
+                 <field id="offers_enabled" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Accept Offers</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If set to Yes, you'll be able accept offer on your listing so you can negotiate with interested buyers and increase your chances of making a sale. You'll never be required to accept an offer.</comment>
+                </field>
+            </group>
+
+             <group id="listings_update_switches" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Listings Update Fields</label>
+                <field id="title" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>input-text required-entry</validate>
+                    <comment>Click "Yes" to have the listing title updated whenever a listing update call is made to Reverb</comment>
+                </field>
+                <field id="price" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Price</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>input-text required-entry</validate>
+                    <comment>Click "Yes" to have the listing price synced to Reverb on update</comment>
+                </field>
+                 <field id="inventory_qty" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Inventory</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>input-text required-entry</validate>
+                    <comment>Click "Yes" to have the listing inventory quantity synced to Reverb on update</comment>
+                </field>
+                <field id="description" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Description</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>input-text required-entry</validate>
+                    <comment>Click "Yes" to have the listing description synced to Reverb on update</comment>
+                </field>
+            </group>
+
+              <group id="listings_field_attributes" translate="label" type="text" sortOrder="45" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Listings Field Attributes</label>
+                <comment>The fields mapped here will be synced to Reverb using the values of the attributes on the products</comment>
+                <field id="make" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Make</label>
+                    <source_model>Reverb\ReverbSync\Model\Source\Product\Attribute</source_model>
+                </field>
+                <field id="model" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Model</label>
+                    <source_model>Reverb\ReverbSync\Model\Source\Product\Attribute</source_model>
+                </field>
+                 <field id="price" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Price</label>
+                    <source_model>Reverb\ReverbSync\Model\Source\Product\Attribute</source_model>
+                </field>
+                <field id="description" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Description</label>
+                    <source_model>Reverb\ReverbSync\Model\Source\Product\Attribute</source_model>
+                </field>
+                 <field id="shipping_profile_name" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Shipping Profile (Name)</label>
+                    <source_model>Reverb\ReverbSync\Model\Source\Product\Attribute</source_model>
+                </field>
+                 <field id="finish" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Finish (e.g. Pelham Blue) - mostly for guitars</label>
+                    <source_model>Reverb\ReverbSync\Model\Source\Product\Attribute</source_model>
+                </field>
+                  <field id="year" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Year of manufacture - e.g. 1975 or range like 1960-1963</label>
+                    <source_model>Reverb\ReverbSync\Model\Source\Product\Attribute</source_model>
+                </field>
+            </group>
+            
+              <group id="orders_sync" translate="label" type="text" sortOrder="55" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Order Sync</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Order Sync</label>
+                    <comment>This setting affects both order creation and update</comment>
+                    <validate>input-text required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="order_sync_reverb_source_url" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Which orders should sync from Reverb?</label>
+                      <validate>input-text required-entry</validate>
+                      <source_model>Reverb\ReverbSync\Model\Source\Orderurl</source_model>
+                    <comment>It's recommended to sync all orders so that you pull and reserve inventory as soon as an offer is accepted. If your order sync triggers external systems, you may want to sync only paid orders awaiting shipment to prevent triggering shipment of an unpaid item.</comment>
+                </field>
+                 <field id="super_mode_enabled" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Override Product Inventory/Status Checks</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>input-text required-entry</validate>
+                    <comment>Set to "Yes" to ignore all product inventory/availability checks while syncing orders. This will enable you to see all your Reverb orders, even if you don't have the item in stock in Magento. If you have this disabled, orders that fail to sync will be available in the Reverb order sync tab so that you can restock inventory and then resync the order.</comment>
+                </field>
+                <field id="store_to_sync_order_to" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Magento Store to sync orders to</label>
+                    <validate>input-text required-entry</validate>
+                    <source_model>Reverb\ReverbSync\Model\Source\Store</source_model>
+                    <!-- <source_model>Magento\Config\Model\Config\Source\Yesno</source_model> -->
+                    <comment>Orders synced from Reverb will be denoted as having been bought from the store chosen here. This choice will also set the order ID numbers to be in sync with the order ID numbers of the chosen store</comment>
+                </field>
+            </group>
+
+             <group id="stale_task_deletion" translate="label" type="text" sortOrder="250" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Stale Task Deletion</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Deletion of Stale Tasks</label>
+                     <comment>To delete tasks which have been completed in the system for more than the amount of days configured below, set this to "Yes"</comment>
+                    <validate>required-entry</validate>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="stale_period_in_days" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Period to define as stale</label>
+                    <validate>validate-greater-than-zero required-entry</validate>
+                     <comment>If the above setting is set to "Yes", any completed task in the system which is older than this value will be deleted from the system during a nightly cronjob.</comment>
+                </field>
+            </group>
+
+        </section>
+    </system>
+</config>

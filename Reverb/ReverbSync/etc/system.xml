@@ -1,0 +1,373 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ * @category    Reverb
+ * @package     Reverb_ReverbSync
+ * @author      Sean Dunagan
+ * @author      Timur Zaynullin <zztimur@gmail.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+   <tab id="ReverbSync" translate="label" sortOrder="10">
+      <label>ReverbSync</label>
+  </tab>
+  <sections>
+     <class>separator-top</class>
+      <label>Reverb Configuration</label>
+      <tab>ReverbSync</tab>
+      <resource>Reverb_ReverbSync::reverb</resource>
+      <group id="extensionOption_group" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+          <label>Enable Reverb Module:</label>
+          <field id="module_select" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+              <label>Enable Reverb Module:</label>
+              <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+              <comment>Select Yes/No to enable/disable module</comment>
+          </field>
+          <field id="enable_logging" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+              <label>Enable Logging for Reverb Module:</label>
+              <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+              <comment>Select Yes/No to enable/disable logging for the Reverb module</comment>
+          </field>
+      </group>
+
+<!-- 
+        <extension translate="label comment tooltip">
+          <label>Reverb Connection</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>140</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <expanded>1</expanded>
+          <fields>
+            <revUrl translate="label">
+              <label>Reverb Sync Destination (Production/Sandbox)</label>
+              <comment>Set to Sandbox to test your extension without affecting your live listings. Note: fake orders will be synced from Sandbox if you have Order sync enabled.</comment>
+              <frontend_type>select</frontend_type>
+              <sort_order>1</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <validate>input-text required-entry</validate>
+              <source_model>reverbSync/source_revurl</source_model>
+            </revUrl>
+            <api_token translate="label">
+              <label>API Token</label>
+              <comment>From https://reverb.com/my/api_settings</comment>
+              <frontend_type>password</frontend_type>
+              <sort_order>5</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <validate>input-text required-entry</validate>
+            </api_token>
+          </fields>
+        </extension>
+
+        <reverbDefault translate="label comment tooltip">
+          <label>Reverb Default</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>142</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <expanded>1</expanded>
+
+          <fields>
+            <enable_listing_creation translate="label">
+              <label>Enable Listing Creation</label>
+              <frontend_type>select</frontend_type>
+              <sort_order>10</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <validate>required-entry</validate>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+            </enable_listing_creation>
+
+            <require_reverb_category_definition translate="label">
+                <label>Require Reverb Category Definition</label>
+                <frontend_type>select</frontend_type>
+                <sort_order>12</sort_order>
+                <show_in_default>1</show_in_default>
+                <show_in_website>1</show_in_website>
+                <show_in_store>1</show_in_store>
+                <validate>required-entry</validate>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+                <comment>If set to Yes, products which are not included in a Magento category which has been mapped to a Reverb category can not be synced to Reverb.</comment>
+            </require_reverb_category_definition>
+
+            <enable_image_sync translate="label">
+              <label>Enable Product Image Sync</label>
+              <frontend_type>select</frontend_type>
+              <sort_order>15</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <validate>required-entry</validate>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+            </enable_image_sync>
+
+            <revInvent translate="label">
+              <label>Inventory Tracking</label>
+              <comment>If no, all inventory will be set to 1</comment>
+              <frontend_type>select</frontend_type>
+              <sort_order>20</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <validate>input-text required-entry</validate>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+            </revInvent>
+
+            <revCond translate="label">
+              <label>Default Item Condition</label>
+              <frontend_type>select</frontend_type>
+              <sort_order>30</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <source_model>reverbSync/source_listing_condition</source_model>
+            </revCond>
+
+            <offers_enabled translate="label">
+              <label>Accept Offers</label>
+              <frontend_type>select</frontend_type>
+              <sort_order>35</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <comment>If set to Yes, you'll be able accept offer on your listing so you can negotiate with interested buyers and increase your chances of making a sale. You'll never be required to accept an offer.</comment>
+            </offers_enabled>
+
+          </fields>
+        </reverbDefault>
+
+        <listings_update_switches translate="label">
+          <label>Listings Update Fields</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>150</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <expanded>1</expanded>
+          <fields>
+            <title translate="label">
+              <label>Title</label>
+              <comment>Click "Yes" to have the listing title updated whenever a listing update call is made to Reverb</comment>
+              <frontend_type>select</frontend_type>
+              <sort_order>10</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <validate>input-text required-entry</validate>
+            </title>
+            <price translate="label">
+              <label>Price</label>
+              <comment>Click "Yes" to have the listing price synced to Reverb on update</comment>
+              <frontend_type>select</frontend_type>
+              <sort_order>20</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <validate>input-text required-entry</validate>
+            </price>
+            <inventory_qty translate="label">
+              <label>Inventory</label>
+              <comment>Click "Yes" to have the listing inventory quantity synced to Reverb on update</comment>
+              <frontend_type>select</frontend_type>
+              <sort_order>30</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <validate>input-text required-entry</validate>
+            </inventory_qty>
+            <description translate="label">
+              <label>Description</label>
+              <comment>Click "Yes" to have the listing description synced to Reverb on update</comment>
+              <frontend_type>select</frontend_type>
+              <sort_order>40</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <validate>input-text required-entry</validate>
+            </description>
+          </fields>
+        </listings_update_switches>
+
+        <listings_field_attributes>
+            <label>Listings Field Attributes</label>
+            <frontend_type>text</frontend_type>
+            <sort_order>175</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>
+            <expanded>1</expanded>
+            <comment>The fields mapped here will be synced to Reverb using the values of the attributes on the products</comment>
+            <fields>
+                <make translate="label">
+                    <label>Make</label>
+                    <frontend_type>select</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <source_model>reverbSync/source_product_attribute</source_model>
+                </make>
+                <model translate="label">
+                    <label>Model</label>
+                    <frontend_type>select</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <source_model>reverbSync/source_product_attribute</source_model>
+                </model>
+                <price translate="label">
+                    <label>Price</label>
+                    <frontend_type>select</frontend_type>
+                    <sort_order>30</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <source_model>reverbSync/source_product_attribute</source_model>
+                </price>
+                <description translate="label">
+                    <label>Description</label>
+                    <frontend_type>select</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <source_model>reverbSync/source_product_attribute</source_model>
+                </description>
+                <shipping_profile_name translate="label">
+                    <label>Shipping Profile (Name)</label>
+                    <frontend_type>select</frontend_type>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <source_model>reverbSync/source_product_attribute</source_model>
+                </shipping_profile_name>
+                <finish translate="label">
+                    <label>Finish (e.g. Pelham Blue) - mostly for guitars</label>
+                    <frontend_type>select</frontend_type>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <source_model>reverbSync/source_product_attribute</source_model>
+                </finish>
+                <year translate="label">
+                    <label>Year of manufacture - e.g. 1975 or range like 1960-1963</label>
+                    <frontend_type>select</frontend_type>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <source_model>reverbSync/source_product_attribute</source_model>
+                </year>
+            </fields>
+        </listings_field_attributes>
+
+        <orders_sync translate="label">
+          <label>Order Sync</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>200</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <expanded>1</expanded>
+
+          <fields>
+            <enabled translate="label">
+              <label>Enable Order Sync</label>
+              <comment>This setting affects both order creation and update</comment>
+              <frontend_type>select</frontend_type>
+              <sort_order>30</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <validate>input-text required-entry</validate>
+            </enabled>
+            <order_sync_reverb_source_url>
+              <label>Which orders should sync from Reverb?</label>
+              <comment>It's recommended to sync all orders so that you pull and reserve inventory as soon as an offer is accepted. If your order sync triggers external systems, you may want to sync only paid orders awaiting shipment to prevent triggering shipment of an unpaid item.</comment>
+              <frontend_type>select</frontend_type>
+              <sort_order>35</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <validate>input-text required-entry</validate>
+              <source_model>reverbSync/source_orderurl</source_model>
+            </order_sync_reverb_source_url>
+            <super_mode_enabled translate="label">
+              <label>Override Product Inventory/Status Checks</label>
+              <comment>Set to "Yes" to ignore all product inventory/availability checks while syncing orders. This will enable you to see all your Reverb orders, even if you don't have the item in stock in Magento. If you have this disabled, orders that fail to sync will be available in the Reverb order sync tab so that you can restock inventory and then resync the order.</comment>
+              <frontend_type>select</frontend_type>
+              <sort_order>40</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <validate>input-text required-entry</validate>
+            </super_mode_enabled>
+            <store_to_sync_order_to translate="label">
+                <label>Magento Store to sync orders to</label>
+                <comment>Orders synced from Reverb will be denoted as having been bought from the store chosen here. This choice will also set the order ID numbers to be in sync with the order ID numbers of the chosen store</comment>
+                <frontend_type>select</frontend_type>
+                <sort_order>50</sort_order>
+                <show_in_default>1</show_in_default>
+                <show_in_website>0</show_in_website>
+                <show_in_store>0</show_in_store>
+                <source_model>reverbSync/source_store</source_model>
+                <validate>input-text required-entry</validate>
+            </store_to_sync_order_to>
+          </fields>
+        </orders_sync>
+
+          <stale_task_deletion translate="label">
+              <label>Stale Task Deletion</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>250</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <expanded>1</expanded>
+
+              <fields>
+                  <enabled translate="label">
+                      <label>Enable Deletion of Stale Tasks</label>
+                      <comment>To delete tasks which have been completed in the system for more than the amount of days configured below, set this to "Yes"</comment>
+                      <frontend_type>select</frontend_type>
+                      <sort_order>10</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>1</show_in_store>
+                      <source_model>adminhtml/system_config_source_yesno</source_model>
+                      <validate>required-entry</validate>
+                  </enabled>
+                  <stale_period_in_days>
+                      <label>Period to define as stale</label>
+                      <comment>If the above setting is set to "Yes", any completed task in the system which is older than this value will be deleted from the system during a nightly cronjob.</comment>
+                      <frontend_type>text</frontend_type>
+                      <sort_order>20</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>1</show_in_store>
+                      <validate>validate-greater-than-zero required-entry</validate>
+                  </stale_period_in_days>
+                </fields>
+            </stale_task_deletion>
+      </groups>
+    </ReverbSync> -->
+  </sections>
+</config>

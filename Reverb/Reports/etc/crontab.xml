@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="reverb_reports_delete_stale_successful"  instance="\Reverb\Reports\Model\Cron\Delete\Stale\Successful" method="deleteStaleSuccessfulReports">
+            <schedule>37 4 * * *</schedule>
+        </job>
+    </group>
+</config>

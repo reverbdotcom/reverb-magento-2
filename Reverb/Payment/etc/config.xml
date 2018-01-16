@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config>
+    <default>
+        <payment>
+            <reverbpayment>
+                <active>1</active>
+                <model>\Reverb\Payment\Model\Method\Reverb</model>
+                <title>Payment Occurred In Reverb System</title>
+                <allowspecific>0</allowspecific>
+                <sort_order>1</sort_order>
+                <group>offline</group>
+            </reverbpayment>
+        </payment>
+    </default>
+</config>

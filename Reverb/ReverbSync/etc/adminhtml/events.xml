@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="should_reverb_shipping_be_allowed">
+        <observer name="check_for_syncing_reverb_order" instance="Reverb\ReverbSync\Observer\checkForSyncingReverbOrderForShipping"/>
+    </event>
+    <event name="should_reverb_payment_be_allowed">
+        <observer name="check_for_syncing_reverb_order" instance="Reverb\ReverbSync\Observer\checkForSyncingReverbOrderForPayment"/>
+    </event>
+    <event name="controller_action_layout_render_before_adminhtml_sales_order_view">
+        <observer name="update_layout_for_reverb_order" instance="Reverb\ReverbSync\Observer\updateAdminOrderViewForReverbOrders"/>
+    </event>
+    <event name="controller_action_layout_render_before_adminhtml_sales_order_invoice_view">
+        <observer name="update_layout_for_reverb_order" instance="Reverb\ReverbSync\Observer\updateAdminOrderViewForReverbOrderInvoices"/>
+    </event>
+    <event name="controller_action_postdispatch_adminhtml_catalog_product_action_attribute_save">
+        <observer name="queue_bulk_product_sync" instance="Reverb\ReverbSync\Observer\triggerProductSyncOffMassProductUpdate"/>
+    </event>
+</config>

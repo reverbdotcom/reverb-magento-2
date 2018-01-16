@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="reverb_process_queued_listing_sync_tasks"  instance="\Reverb\ReverbSync\Model\Cron\Listings\Sync" method="attemptCronExecution">
+            <schedule>* * * * *</schedule>
+        </job>
+        <job name="reverb_process_queued_listing_image_sync_tasks"  instance="\Reverb\ReverbSync\Model\Cron\Listings\Images\Sync" method="attemptCronExecution">
+            <schedule>* * * * *</schedule>
+        </job>
+        <job name="reverb_sync_order_updates"  instance="\Reverb\ReverbSync\Model\Cron\Orders\Update" method="attemptCronExecution">
+            <schedule>3,8,13,18,23,28,33,38,43,48,53,58 * * * *</schedule>
+        </job>
+    </group>
+</config>

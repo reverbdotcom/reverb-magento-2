@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Reverb\ReverbSync\Block\Adminhtml\Orders\Index" name="reverborder.widget.grid" />
+            <block class="Reverb\ReverbSync\Block\Adminhtml\Orders\Ordersync" name="reverbordersync.grid.container" after="-"/>
+        </referenceContainer>
+    </body>
+</page>
+
+                   

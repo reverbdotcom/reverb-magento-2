@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:DataObject/etc/fieldset.xsd">
+    <scope id="global">
+        <fieldsets>
+            <sales_convert_quote_item>
+                <reverb_item_link>
+                    <to_order_item>*</to_order_item>
+                </reverb_item_link>
+            </sales_convert_quote_item>
+        </fieldsets>
+    </scope>
+</config>
