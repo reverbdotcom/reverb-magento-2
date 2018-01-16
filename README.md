@@ -24,7 +24,7 @@ If you need help with your Magento install or integration of this plugin with yo
 
 Github: [kevinecd](https://github.com/kevinecd)
 
-Email: [kevin@ecomdash.com](mailto:kevin@ecomdash.com?Subject=Reverb%20Magento%20Plugin)
+Email: [scruggssales@gmail.com](mailto:scruggssales@gmail.com?Subject=Reverb%20Magento%20Plugin)
 
 ## FAQ
 
@@ -62,13 +62,13 @@ Please follow the instructions below to download and install the app. This assum
 cd /path/to/magento
 
 # Download the release
-cd /tmp && wget https://github.com/reverbdotcom/magento2/archive/Reverb.tar.gz //this will depend on where the repo lives and what you name it
+cd /tmp && wget https://github.com/reverbdotcom/reverb-magento-2/archive/1.0.1.tar.gz
 
 # Unzip the release
-tar zxvf Reverb.tar.gz //this will depend on repo name
+tar zxvf reverb-magneto2-1.0.1.tar.gz //this will depend on repo name
 
 # Copy everything from the app folder into your magento app
-rsync -avzp Reverb/* /path/to/magento/app/code/
+rsync -avzp reverb-magento-2-1.0.1/* /path/to/magento/app/code/
 
 # Enable All Reverb Modules
 php bin/magento module:enable Reverb_Base
@@ -122,7 +122,7 @@ The listing sync to Reverb can be triggered in two ways:
 
 ## Usage - Order Sync
 
-Orders are automatically synced on a five minute cron timer. If you aren't seeing orders, please ~~visit the Order Creation tab under Reverb and click the button to manually sync them~~ click the "Test Order Sync" button under the Reverb menu.  This will take you to a blank page, immediately click back and visit the "Order Updates" tab (this is for the beta only). Please report any issues with periodic syncing to the [Reverb Magento Support Group](https://groups.google.com/forum/#!forum/reverb-magento)
+Orders are automatically synced on a five minute cron timer. If you aren't seeing orders, please visit the Order Creation tab under Reverb and click the button to manually sync them. Please report any issues with periodic syncing to the [Reverb Magento Support Group](https://groups.google.com/forum/#!forum/reverb-magento)
 
 * **Orders are synced only 24 hours into the past** if you just installed the extension and want to sync older orders, please edit the file at app/code/Reverb/ReverbSync/Helper/Orders/Retrieval/Update.php and change MINUTES_IN_PAST_FOR_CREATION_QUERY to the number in minutes you want to go into the past. For 3 days, use 3 * 60 * 24 = 4320
 
