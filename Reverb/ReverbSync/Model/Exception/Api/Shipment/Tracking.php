@@ -1,10 +1,5 @@
 <?php
-/**
- * Author: Sean Dunagan
- * Created: 9/22/15
- */
-
-class Reverb_ReverbSync_Model_Exception_Api_Shipment_Tracking extends Reverb_ReverbSync_Model_Exception_Api
+namespace Reverb\ReverbSync\Model\Exception\Api\Shipment\Tracking;
+class Fetch extends \Reverb\ReverbSync\Model\Exception\Apiexception
 {
-
-} 
+}

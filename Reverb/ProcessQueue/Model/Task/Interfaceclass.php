@@ -1,8 +1,4 @@
 <?php
-/**
- * Author: Sean Dunagan
- * Created: 8/13/15
- */
 namespace Reverb\ProcessQueue\Model\Task;
 interface Interfaceclass
 {

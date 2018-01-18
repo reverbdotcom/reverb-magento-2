@@ -1,8 +1,4 @@
 <?php
-/**
- * Author: Sean Dunagan
- * Created: 9/22/15
- */
 namespace Reverb\ReverbSync\Model\Source\Unique\Task;
 class Codes
 {

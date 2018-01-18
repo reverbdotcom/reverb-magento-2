@@ -37,7 +37,6 @@ class Sync extends \Magento\Backend\App\Action{
         \Reverb\ProcessQueue\Model\Resource\Taskresource $taskResource,
         \Reverb\Reports\Model\Resource\Reverbreport $reverbreportResource,
         \Reverb\ReverbSync\Helper\Admin $adminHelper,
-        \Magento\Backend\Model\UrlInterface $backendUrl,
         \Reverb\ReverbSync\Helper\Sync\Product $syncProductHelper
     ) {
         parent::__construct($context);
@@ -46,7 +45,7 @@ class Sync extends \Magento\Backend\App\Action{
         $this->resultPageFactory = $resultPageFactory;
         $this->_reverbReportResource = $reverbreportResource;
         $this->_adminHelper = $adminHelper;
-        $this->_backendUrl = $backendUrl;
+        $this->_backendUrl = $context->getBackendUrl();
         $this->_syncProductHelper = $syncProductHelper;
     }
     public function execute(){

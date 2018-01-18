@@ -1,11 +1,5 @@
 <?php
-/**
- * Author: Sean Dunagan
- * Created: 9/28/15
- */
-
-class Reverb_ReverbSync_Model_Exception_Data_Listings_Image
-    extends Reverb_ReverbSync_Model_Exception_Api
+namespace Reverb\ReverbSync\Model\Exception\Data\Listings;
+class Image extends \Reverb\ReverbSync\Model\Exception\Apiexception
 {
-
-}
+} 

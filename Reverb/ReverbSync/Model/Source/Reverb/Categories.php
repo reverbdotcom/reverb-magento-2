@@ -1,8 +1,4 @@
 <?php
-/**
- * Author: Sean Dunagan
- * Created: 10/26/15
- */
 namespace Reverb\ReverbSync\Model\Source\Reverb;
 class Categories
 {

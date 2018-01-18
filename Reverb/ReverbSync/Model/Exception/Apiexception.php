@@ -1,5 +1,6 @@
 <?php
 namespace Reverb\ReverbSync\Model\Exception;
-class Redirect extends \Exception
+class Apiexception extends \Exception
 {
+
 }

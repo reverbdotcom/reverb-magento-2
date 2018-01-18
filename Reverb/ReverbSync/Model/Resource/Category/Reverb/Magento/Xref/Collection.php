@@ -1,7 +1,7 @@
 <?php
 namespace Reverb\ReverbSync\Model\Resource\Category\Reverb\Magento\Xref;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
-class Collection extends AbstractCollection;
+class Collection extends AbstractCollection
 {
     protected function _construct()
     {

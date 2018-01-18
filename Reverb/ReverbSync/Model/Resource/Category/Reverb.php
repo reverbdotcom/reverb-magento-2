@@ -1,10 +1,5 @@
 <?php
-/**
- * Author: Sean Dunagan
- * Created: 10/26/15
- */
 namespace Reverb\ReverbSync\Model\Resource\Category;
-
 class Reverb extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
 {
     protected $_database_insert_columns_array

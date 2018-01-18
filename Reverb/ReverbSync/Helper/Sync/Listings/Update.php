@@ -1,8 +1,4 @@
 <?php
-/**
- * Author: Sean Dunagan
- * Created: 9/28/15
- */
 namespace Reverb\ReverbSync\Helper\Sync\Listings;
 class Update extends \Magento\Framework\App\Helper\AbstractHelper
 {

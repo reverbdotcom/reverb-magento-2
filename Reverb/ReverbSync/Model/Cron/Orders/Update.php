@@ -24,7 +24,7 @@ class Update extends Cronabstract implements Croninterface
         \Reverb\ReverbSync\Helper\Orders\Retrieval\Update $retrievalUpdate,
         array $data = []
     ) {
-        parent::__construct($getIoAdapter, $dir, $data);
+        parent::__construct($getIoAdapter, $dir);
         $this->getIoAdapter = $getIoAdapter;
         $this->_taskprocessor = $taskprocessor;
         $this->_orderSyncHelper = $orderSyncHelper;

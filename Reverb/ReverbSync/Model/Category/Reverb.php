@@ -1,10 +1,5 @@
 <?php
-/**
- * Author: Sean Dunagan
- * Created: 10/26/15
- */
-namespace Reverb\ReverbSync\Model\Category; 
-
+namespace Reverb\ReverbSync\Model\Category;
 class Reverb extends \Magento\Framework\Model\AbstractModel
 {
     const PRIMARY_KEY_FIELD = 'reverb_category_id';

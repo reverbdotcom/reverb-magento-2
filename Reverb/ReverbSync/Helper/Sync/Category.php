@@ -39,12 +39,11 @@ class Category extends \Magento\Framework\App\Helper\AbstractHelper
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
         \Reverb\ReverbSync\Model\Category\Reverb $reverbCategoryCollection,
-        \Reverb\ReverbSync\Model\Resource\Category\Reverb\Magento\Xref $categoryMagentoXref,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
+        \Reverb\ReverbSync\Model\Resource\Category\Reverb\Magento\Xref $categoryMagentoXref
     ) {
         $this->_reverbCategoryCollection = $reverbCategoryCollection;
        $this->_categoryMagentoXref = $categoryMagentoXref;
-       $this->_scopeConfig = $scopeConfig; 
+       $this->_scopeConfig = $context->getScopeConfig(); 
         parent::__construct($context);
     }
 

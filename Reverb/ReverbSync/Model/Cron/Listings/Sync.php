@@ -21,7 +21,7 @@ class Sync extends Cronabstract implements Croninterface
         \Reverb\ReverbSync\Model\Logger $reverblogger,
         array $data = []
     ) {
-        parent::__construct($getIoAdapter, $dir, $data);
+        parent::__construct($getIoAdapter, $dir);
         $this->getIoAdapter = $getIoAdapter;
         $this->_taskProcessor = $taskprocessor;
         $this->_dir = $dir;

@@ -1,8 +1,4 @@
 <?php
-/**
- * Author: Sean Dunagan
- * Created: 9/14/15
- */
 namespace Reverb\ProcessQueue\Model\Source\Task;
 class Status
 {

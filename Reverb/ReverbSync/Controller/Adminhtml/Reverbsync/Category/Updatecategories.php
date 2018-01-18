@@ -19,14 +19,13 @@ class Updatecategories extends \Magento\Backend\App\Action
     
     public function __construct(Context $context, PageFactory $resultPageFactory,
         \Reverb\ReverbSync\Helper\Category\Remap $remapcategory,
-        \Reverb\ReverbSync\Helper\Category $categoryHelper,
-        \Magento\Framework\Message\ManagerInterface $messageManager
+        \Reverb\ReverbSync\Helper\Category $categoryHelper
     ) {
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
         $this->_remapCategory = $remapcategory;
         $this->_categoryhelper = $categoryHelper;
-        $this->_messageManager = $messageManager;
+        $this->_messageManager = $context->getMessageManager();
     }
 
     public function execute(){

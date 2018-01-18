@@ -1,14 +1,8 @@
 <?php
-/**
- * Author: Sean Dunagan
- * Created: 9/11/15
- */
 namespace Reverb\ReverbSync\Block\Adminhtml\Category;
-
 use Magento\Backend\Block\Widget\Form\Container;
 use Magento\Backend\Block\Widget\Context;
 use Magento\Framework\Registry;
- 
 class Edit extends Container
 {
 	/**

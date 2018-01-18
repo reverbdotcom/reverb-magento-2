@@ -1,7 +1,7 @@
 <?php
 namespace Reverb\ReverbSync\Helper\Orders\Retrieval;
 /*use Magento\Framework\DataObject;*/
-class Update extends \Reverb\ReverbSync\Helper\Orders\Retrieval
+class Update extends \Reverb\ReverbSync\Helper\Orders\Retrievalabstract
 {
     const ORDERS_UPDATE_RETRIEVAL_URL_TEMPLATE = '/api/my/orders/selling/all?updated_start_date=%s';
 

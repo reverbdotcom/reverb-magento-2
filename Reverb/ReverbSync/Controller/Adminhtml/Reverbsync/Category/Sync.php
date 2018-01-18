@@ -1,14 +1,4 @@
 <?php
-
-/**
- *
- * @category    Reverb
- * @package     Reverb_ReverbSync
- * @author      Sean Dunagan
- * @author      Timur Zaynullin <zztimur@gmail.com>
- */
-
-//require_once('Reverb/ReverbSync/controllers/Adminhtml/BaseController.php');
 namespace Reverb\ReverbSync\Controller\Adminhtml\Reverbsync\Category;
 
 use Magento\Backend\App\Action\Context;

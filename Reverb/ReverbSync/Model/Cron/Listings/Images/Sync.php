@@ -16,10 +16,9 @@ class Sync extends Cronabstract implements Croninterface
         \Magento\Framework\Filesystem\DirectoryList $dir,
         \Reverb\ProcessQueue\Helper\Task\Processor\Unique $taskprocessorUnique,
         \Reverb\ReverbSync\Model\Logger $logger,
-         \Reverb\Io\Model\Io\File $getIoAdapter,
-        array $data = []
+        \Reverb\Io\Model\Io\File $getIoAdapter
     ) {
-        parent::__construct($getIoAdapter, $dir, $data);
+        parent::__construct($getIoAdapter, $dir);
         $this->getIoAdapter = $getIoAdapter;
         $this->_taskprocessorUnique = $taskprocessorUnique;
         $this->_dir = $dir;
