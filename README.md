@@ -8,7 +8,7 @@ Please read this entire README prior to installing the application.
 
 ## Features
 
-* Create new draft listings on Reverb from Magento products, including image ~~& category sync~~ (category sync requires bugfix) 
+* Create new draft listings on Reverb from Magento products, including image & category sync
 * Control whether price/title/inventory syncs individualy.
 * Sync updates for inventory from Magento to Reverb. 
 * Sync orders from Reverb to Magento
@@ -62,13 +62,13 @@ Please follow the instructions below to download and install the app. This assum
 cd /path/to/magento
 
 # Download the release
-cd /tmp && wget https://github.com/reverbdotcom/reverb-magento-2/archive/1.0.3.tar.gz
+cd /tmp && wget https://github.com/reverbdotcom/reverb-magento-2/archive/1.0.4.tar.gz
 
 # Unzip the release
-tar zxvf 1.0.3.tar.gz 
+tar zxvf 1.0.4.tar.gz 
 
 # Copy everything from the app folder into your magento app
-rsync -avzp reverb-magento-2-1.0.3/* /path/to/magento/app/code/
+rsync -avzp reverb-magento-2-1.0.4/* /path/to/magento/app/code/
 
 # Enable All Reverb Modules
 php bin/magento module:enable Reverb_Base
@@ -148,6 +148,29 @@ The bulk sync uses multiple threads (runs in parallel). It takes some time to sp
 ### Blank pages or plugin doesn't load
 
 Please make sure you've [cleared your magento cache](http://devdocs.magento.com/guides/v2.0/config-guide/cli/config-cli-subcommands-cache.html#config-cli-subcommands-cache-clean).
+
+### Can't create invoice / paypal won't work / can't add item to cart
+
+Change needs to be made in this core file:
+
+/vendor/magento/framework/DataObject/Copy/Config/Converter.php on line 41
+
+Find line 41 in above file, should look like following code:
+```
+ $fieldsetName = $fieldset->attributes->getNamedItem('id')->nodeValue;
+ $result[$fieldsetName] = $this->_convertFieldset($fieldset);
+```
+
+Replace those lines with the following:
+
+```
+if($fieldset->attributes->getNamedItem('id')){
+     $fieldsetName = $fieldset->attributes->getNamedItem('id')->nodeValue;
+     $result[$fieldsetName] = $this->_convertFieldset($fieldset);
+}
+```
+
+Note: updating core files is not recommended.  This is a temporary solution, follow [this issue](https://github.com/reverbdotcom/reverb-magento-2/issues/2) for updates on this fix.
 
 ## Support and Announcements
 
