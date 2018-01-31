@@ -33,6 +33,7 @@ class Update extends \Reverb\ProcessQueue\Model\Task
         \Reverb\ProcessQueue\Model\Task\Result $taskResult,
         \Magento\Framework\Stdlib\DateTime\DateTime $datetime,
         \Magento\Framework\Model\Context $context,
+        \Magento\Framework\View\Element\Template\Context $templatecontext,
         \Magento\Framework\Registry $registry,
         \Reverb\ReverbSync\Helper\Orders\Sync $ordersSyncHelper,
         \Reverb\ReverbSync\Model\Resource\Order $resourceOrder,
@@ -51,9 +52,9 @@ class Update extends \Reverb\ProcessQueue\Model\Task
         $this->_orderStatusSource = $orderStatusSource;
         $this->_orderCreationRetrievalUrlSource = $orderCreationRetrievalUrlSource;
         $this->_orderCreationHelper = $orderCreationHelper;
-        $this->_storemanager = $context->getStoreManager();
+        $this->_storemanager = $templatecontext->getStoreManager();
         $this->_customer = $customer;
-        $this->_eventManager = $context->getEventManager();
+        $this->_eventManager = $templatecontext->getEventManager();
         $this->_syncResourceOrder = $syncResourceOrder;
         $this->_reverbLogger = $reverblogger;
         parent::__construct($taskResult, $datetime, $context, $registry);

@@ -3,7 +3,7 @@ namespace Reverb\ReverbSync\Block\Adminhtml\Widget\Grid\Column\Renderer\Order\Pr
 use Magento\Framework\DataObject;
 class Abstractclass extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\AbstractRenderer
 {
-    const ANCHOR_TAG_TEMPLATE = '<a href="%s">%s</a>';
+    const ANCHOR_TAG_TEMPLATE = '<a href="%s" target="_blank">%s</a>';
 
     protected function _getMagentoProductForRow(DataObject $row)
     {
@@ -54,7 +54,7 @@ class Abstractclass extends \Magento\Backend\Block\Widget\Grid\Column\Renderer\A
     public function getHtmlAnchorLinkToProductEditPage($label, $magento_product_entity_id)
     {
         $escaped_label = $this->escapeHtml($label);
-        $product_edit_url = $this->getUrl('adminhtml/catalog_product/edit', array('id' => $magento_product_entity_id));
+        $product_edit_url = $this->getUrl('catalog/product/edit', array('id' => $magento_product_entity_id));
         return sprintf(self::ANCHOR_TAG_TEMPLATE, $product_edit_url, $escaped_label);
     }
 

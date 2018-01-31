@@ -1,5 +1,5 @@
 <?php
-namespace Reverb\ReverbSync\Controller\Adminhtml\ReverbSync\Field;
+namespace Reverb\ReverbSync\Controller\Adminhtml\Reverbsync\Field;
 
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
@@ -15,13 +15,12 @@ class Mapping extends \Magento\Backend\App\Action
 	 */
 	protected $resultPageFactory;
 	
-	public function __construct(Context $context, PageFactory $resultPageFactory) {
+	public function __construct(\Magento\Backend\App\Action\Context $context, \Magento\Framework\View\Result\PageFactory $resultPageFactory) {
 		parent::__construct($context);
 		$this->resultPageFactory = $resultPageFactory;
 	}
 
 	public function execute(){
-		
 		if ($this->getRequest()->getParam('ajax')) {
             $this->_forward('grid');
             return;

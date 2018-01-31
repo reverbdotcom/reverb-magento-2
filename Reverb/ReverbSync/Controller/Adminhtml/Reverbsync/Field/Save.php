@@ -1,5 +1,5 @@
 <?php
-namespace Reverb\ReverbSync\Controller\Adminhtml\ReverbSync\Field;
+namespace Reverb\ReverbSync\Controller\Adminhtml\Reverbsync\Field;
 
 class Save extends \Magento\Backend\App\Action
 {

@@ -6,7 +6,7 @@
  * @package     Reverb_ReverbSync
  */
 
-namespace Reverb\ReverbSync\Controller\Adminhtml\ReverbSync\Field;
+namespace Reverb\ReverbSync\Controller\Adminhtml\Reverbsync\Field;
 
 class NewAction extends \Magento\Backend\App\Action
 {

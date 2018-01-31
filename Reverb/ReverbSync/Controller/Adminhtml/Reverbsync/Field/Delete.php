@@ -1,5 +1,5 @@
 <?php
-namespace Reverb\ReverbSync\Controller\Adminhtml\ReverbSync\Field;
+namespace Reverb\ReverbSync\Controller\Adminhtml\Reverbsync\Field;
 
 use Magento\Backend\App\Action;
 use Magento\TestFramework\ErrorLog\Logger;

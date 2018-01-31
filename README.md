@@ -62,13 +62,13 @@ Please follow the instructions below to download and install the app. This assum
 cd /path/to/magento
 
 # Download the release
-cd /tmp && wget https://github.com/reverbdotcom/reverb-magento-2/archive/1.0.4.tar.gz
+cd /tmp && wget https://github.com/reverbdotcom/reverb-magento-2/archive/1.0.5.tar.gz
 
 # Unzip the release
-tar zxvf 1.0.4.tar.gz 
+tar zxvf 1.0.5.tar.gz 
 
 # Copy everything from the app folder into your magento app
-rsync -avzp reverb-magento-2-1.0.4/* /path/to/magento/app/code/
+rsync -avzp reverb-magento-2-1.0.5/* /path/to/magento/app/code/
 
 # Enable All Reverb Modules
 php bin/magento module:enable Reverb_Base
@@ -118,7 +118,7 @@ The listing sync to Reverb can be triggered in two ways:
 
 1. When you Save any Product in Magento, it will automaticaly sync to Reverb. Make sure you set "Sync to Reverb" to "Yes" on the bottom of the product page, and enable the Reverb Module in your global settings (see Part 3 of installation).
 
-2. Bulk Sync. Under the Reverb menu item, select listing or order sync and use the Bulk Sync button in the upper right. The page will update with progress over time. Please note that very large catalogs (thousands of skus) may take an hour or more to fully sync. Please refresh the page to see the sync report.
+2. Bulk Sync. Under the Reverb menu item, click the button "bulk sync listings". This button is temporary as the listing process is dictated by cron and triggered on a schedule, this is only a workaround until we are sure all bugs are worked out.  Please note that very large catalogs (thousands of skus) may take an hour or more to fully sync. Please refresh the page to see the sync report.
 
 ## Usage - Order Sync
 
