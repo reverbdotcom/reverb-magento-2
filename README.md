@@ -62,13 +62,13 @@ Please follow the instructions below to download and install the app. This assum
 cd /path/to/magento
 
 # Download the release
-cd /tmp && wget https://github.com/reverbdotcom/reverb-magento-2/archive/1.0.5.tar.gz
+cd /tmp && wget https://github.com/reverbdotcom/reverb-magento-2/archive/1.0.6.tar.gz
 
 # Unzip the release
-tar zxvf 1.0.5.tar.gz 
+tar zxvf 1.0.6.tar.gz 
 
 # Copy everything from the app folder into your magento app
-rsync -avzp reverb-magento-2-1.0.5/* /path/to/magento/app/code/
+rsync -avzp reverb-magento-2-1.0.6/* /path/to/magento/app/code/
 
 # Enable All Reverb Modules
 php bin/magento module:enable Reverb_Base
@@ -122,7 +122,7 @@ The listing sync to Reverb can be triggered in two ways:
 
 ## Usage - Order Sync
 
-Orders are automatically synced on a five minute cron timer. If you aren't seeing orders, please visit the Order Creation tab under Reverb and click the button to manually sync them. Please report any issues with periodic syncing to the [Reverb Magento Support Group](https://groups.google.com/forum/#!forum/reverb-magento)
+Orders are automatically synced on a five minute cron timer. If you aren't seeing orders, please visit the Order Sync tab under Reverb and click the 'Download and Process Order Updates' button to manually sync them. If you are experiencing any issues with periodic syncing please create a new issue.
 
 * **Orders are synced only 24 hours into the past** if you just installed the extension and want to sync older orders, please edit the file at app/code/Reverb/ReverbSync/Helper/Orders/Retrieval/Update.php and change MINUTES_IN_PAST_FOR_CREATION_QUERY to the number in minutes you want to go into the past. For 3 days, use 3 * 60 * 24 = 4320
 
@@ -149,7 +149,7 @@ The bulk sync uses multiple threads (runs in parallel). It takes some time to sp
 
 Please make sure you've [cleared your magento cache](http://devdocs.magento.com/guides/v2.0/config-guide/cli/config-cli-subcommands-cache.html#config-cli-subcommands-cache-clean).
 
-### Can't create invoice / paypal won't work / can't add item to cart
+### Can't create invoice / paypal won't work / can't add item to cart / Order sync will not complete
 
 Change needs to be made in this core file:
 

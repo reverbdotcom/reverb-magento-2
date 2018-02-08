@@ -19,12 +19,14 @@ class Product//extends ModelTask
         \Reverb\ProcessQueue\Model\Task\Result $taskResult,
         \Reverb\ReverbSync\Model\Resource\Catalog\Product $productResource,
         \Reverb\ReverbSync\Helper\Sync\Product $helperSyncProduct,
-        \Reverb\ReverbSync\Helper\Sync\Image $syncImage
+        \Reverb\ReverbSync\Helper\Sync\Image $syncImage,
+        \Reverb\ReverbSync\Model\Log $reverblogger
     ) {
         $this->_productResource = $productResource;
         $this->_taskResult = $taskResult;
         $this->_helperSyncProduct = $helperSyncProduct;
         $this->_syncImage = $syncImage;
+        $this->reverbLogger = $reverblogger;
     }
 
     /**
@@ -66,7 +68,7 @@ class Product//extends ModelTask
             $taskExecutionResult->setTaskStatusMessage($error_message);
             return $taskExecutionResult;
         }
-        catch(Exception $e)
+        catch(\Exception $e)
         {
             $error_message = __(self::EXCEPTION_SYNCING_PRODUCT, $product_sku, $e->getMessage());
             $this->_getReverbSyncLogSingleton()->logListingSyncError($error_message);
@@ -93,11 +95,11 @@ class Product//extends ModelTask
                 }
             }
         }
-        catch(Exception $e)
+        catch(\Exception $e)
         {
             // Exceptions during image sync do not prevent queue task from being denoted Complete
             $error_message = __(self::EXCEPTION_DURING_IMAGE_SYNC, $product_sku, $e->getMessage());
-            $this->_getProcessQueueLogSingleton()->logQueueProcessorError($error_message);
+            $this->_getReverbSyncLogSingleton()->logListingSyncError($error_message);
         }
 
         $taskExecutionResult->setTaskStatus(\Reverb\ProcessQueue\Model\Task::STATUS_COMPLETE);
@@ -111,7 +113,7 @@ class Product//extends ModelTask
     {
         if (is_null($this->_reverbSyncLogSingleton))
         {
-            $this->_reverbSyncLogSingleton = Mage::getSingleton('reverbSync/log');
+            $this->_reverbSyncLogSingleton = $this->reverbLogger;
         }
 
         return $this->_reverbSyncLogSingleton;
@@ -122,11 +124,6 @@ class Product//extends ModelTask
      */
     protected function _getProcessQueueLogSingleton()
     {
-        if (is_null($this->_processQueueLogSingleton))
-        {
-            $this->_processQueueLogSingleton = Mage::getSingleton('reverb_process_queue/log');
-        }
-
-        return $this->_processQueueLogSingleton;
+        return $this->_getReverbSyncLogSingleton();
     }
 }
