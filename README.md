@@ -124,6 +124,8 @@ The listing sync to Reverb can be triggered in two ways:
 
 Orders are automatically synced on a five minute cron timer. If you aren't seeing orders, please visit the Order Sync tab under Reverb and click the 'Download and Process Order Updates' button to manually sync them. If you are experiencing any issues with periodic syncing please create a new issue.
 
+*Note: if orders will not complete OR if you receive an error message when using manual download/processing buttons please refer to the final item in the troubleshooting section, "Can't create invoice / paypal won't work / can't add item to cart / Order sync will not complete"*
+
 * **Orders are synced only 24 hours into the past** if you just installed the extension and want to sync older orders, please edit the file at app/code/Reverb/ReverbSync/Helper/Orders/Retrieval/Update.php and change MINUTES_IN_PAST_FOR_CREATION_QUERY to the number in minutes you want to go into the past. For 3 days, use 3 * 60 * 24 = 4320
 
 ## Syncing Orders - Paid or All
@@ -170,7 +172,7 @@ if($fieldset->attributes->getNamedItem('id')){
 }
 ```
 
-Note: updating core files is not recommended.  This is a temporary solution, follow [this issue](https://github.com/reverbdotcom/reverb-magento-2/issues/2) for updates on this fix.
+*Note: updating core files is not recommended.  This is a temporary solution, follow [this issue](https://github.com/reverbdotcom/reverb-magento-2/issues/2) for updates on this fix.*
 
 ## Support and Announcements
 
