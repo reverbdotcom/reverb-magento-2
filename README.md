@@ -87,6 +87,26 @@ php bin/magento setup:upgrade
 php bin/magento cache:flush
 php bin/magento cache:clean
 ```
+The following change needs to be made in this core file:
+
+/vendor/magento/framework/DataObject/Copy/Config/Converter.php on line 41
+
+Find line 41 in above file, should look like following code:
+```
+ $fieldsetName = $fieldset->attributes->getNamedItem('id')->nodeValue;
+ $result[$fieldsetName] = $this->_convertFieldset($fieldset);
+```
+
+Replace those lines with the following:
+
+```
+if($fieldset->attributes->getNamedItem('id')){
+     $fieldsetName = $fieldset->attributes->getNamedItem('id')->nodeValue;
+     $result[$fieldsetName] = $this->_convertFieldset($fieldset);
+}
+```
+
+*Note: This is a temporary solution, follow [this issue](https://github.com/reverbdotcom/reverb-magento-2/issues/2) for updates on this fix.*
 
 ## Installation: Part 2 - Install the Cron
 
@@ -103,6 +123,7 @@ or
 ```
 
 If your crontab does not contain either of these examples, please use `crontab -e` to edit it and copy the second line (`cron.sh`) into your crontab.
+
 
 
 ## Installation: Part 3 - Configuration
