@@ -13,7 +13,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper implements \Reve
 
     // In the event that no configuration value was returned for the base url, default to the sandbox URL
     // It's better to make erroneous calls to the sandbox than to production
-    const DEFAULT_REVERB_BASE_API_URL = 'https://sandbox.reverb.com';
+    const DEFAULT_REVERB_BASE_API_URL = 'https://reverb.com';
 
     const API_CALL_LOG_TEMPLATE = "\n%s\n%s\n%s\n%s\n";
 
@@ -135,10 +135,78 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper implements \Reve
             // Log Exception on reports row
             $listingWrapper->setSyncDetails($e->getMessage());
             $listingWrapper->setStatus(self::LISTING_STATUS_ERROR);
-        }
-       
+        }		
         $this->eventManager->dispatch('reverb_listing_synced', ['reverb_listing' => $listingWrapper]);
+        return $listingWrapper;
+    }
+	
+	public function createOrUpdateReverbBulkListing($product, $do_not_allow_creation = false)
+    {
+        // Create empty wrapper in the event an exception is thrown
+        $listingWrapper = $this->_modelWrapperListing;
+        /* @var $listingWrapper Reverb_ReverbSync_Model_Wrapper_Listing */
+        $listingWrapper->setMagentoProduct($product);
 
+        try
+        {
+            $magento_sku = $product->getSku();
+            $reverb_listing_url = $this->findReverbListingUrlByMagentoSku($magento_sku);
+            if ($reverb_listing_url)
+            {
+                $listingWrapper = $this->_mapperProduct->getUpdateListingWrapper($product);
+                $reverb_web_url = $this->updateObject($listingWrapper, $reverb_listing_url);
+            }
+            else if(!$do_not_allow_creation)
+            {
+                $listingWrapper = $this->_mapperProduct->getCreateListingWrapper($product);
+                $reverb_web_url = $this->createObject($listingWrapper);
+
+                // If we are here, we know that the creation sync attempt worked. Attempt to queue image sync for
+                //  all of the product's gallery images
+                try
+                {
+                    $this->_syncImage->queueImageSyncForProductGalleryImages($product);
+                }
+                catch(\Exception $e)
+                {
+                    $listingWrapper->setReverbWebUrl($reverb_web_url);
+                    $error_message = __(sprintf(self::ERROR_LISTING_IMAGE_SYNC, $e->getMessage()));
+                    throw new \Reverb\ReverbSync\Model\Exception\Listing\Image\Sync($error_message);
+                }
+            }
+            else
+            {
+                // On order placement, only listing update should be allowed, not creation
+                return false;
+            }
+
+            $listingWrapper->setReverbWebUrl($reverb_web_url);
+        }
+        catch(\Reverb\ReverbSync\Model\Exception\Status\Error $e)
+        {
+            $this->_getLogSingleton()->logReverbMessage($e->getMessage());
+
+            // Log Exception on reports row
+            $listingWrapper->setSyncDetails($e->getMessage());
+            $listingWrapper->setStatus(self::LISTING_STATUS_ERROR);
+        }
+        catch(\Reverb\ReverbSync\Model\Exception\Listing\Image\Sync $e)
+        {
+            $this->_getLogSingleton()->logReverbMessage($e->getMessage());
+
+            // Log Exception on reports row
+            $listingWrapper->setSyncDetails($e->getMessage());
+            // In this event, the actual listing creation succeeded, so set the status to success
+            $listingWrapper->setStatus(self::LISTING_STATUS_SUCCESS);
+        }
+        catch(\Exception $e)
+        {
+            $this->_getLogSingleton()->logReverbMessage($e->getMessage());
+            // Log Exception on reports row
+            $listingWrapper->setSyncDetails($e->getMessage());
+            $listingWrapper->setStatus(self::LISTING_STATUS_ERROR);
+        }		
+        $this->eventManager->dispatch('reverb_listing_synced', ['reverb_listing' => $listingWrapper]);
         return $listingWrapper;
     }
 

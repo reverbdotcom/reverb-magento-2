@@ -37,7 +37,7 @@ class Update extends Cronabstract implements Croninterface
     {
         try
         {
-            $this->_logError('check Order Update cron is running');
+            //$this->_logError('check Order Update cron is running');
             if (!$this->_orderSyncHelper->isOrderSyncEnabled())
             {
                 return false;

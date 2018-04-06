@@ -66,6 +66,10 @@ class Reverbreport extends AbstractModel
 
     public function populateWithDataFromListingWrapper(\Reverb\ReverbSync\Model\Wrapper\Listing $listingWrapper)
     {
+		//Get Object Manager Instance
+		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+		$model=$objectManager->create('\Reverb\Reports\Model\Reverbreport');	
+		$current_date = $this->_datetime->gmtDate();
         $data_to_add_on_object = array();
 
         // Fields currently being saved to the reports table:
@@ -73,7 +77,6 @@ class Reverbreport extends AbstractModel
         $magentoProduct = $listingWrapper->getMagentoProduct();
         $data_to_add_on_object[self::PRODUCT_ID_FIELD] = $magentoProduct->getId();
         $data_to_add_on_object[self::PRODUCT_SKU_FIELD] = $magentoProduct->getSku();
-
         $api_call_content_data_array = $listingWrapper->getApiCallContentData();
         foreach ($this->_api_content_fields_to_set as $field)
         {
@@ -83,10 +86,41 @@ class Reverbreport extends AbstractModel
         $data_to_add_on_object['status'] = $listingWrapper->getStatus();
         $data_to_add_on_object['sync_details'] = $listingWrapper->getSyncDetails();
         $data_to_add_on_object['rev_url'] = $listingWrapper->getReverbWebUrl();
+		$data_to_add_on_object['last_synced'] = $current_date;
         $this->addData($data_to_add_on_object);
         $this->updateSyncTimeToCurrentTime();
+		$model->setData($data_to_add_on_object);
+		$model->save();
     }
 
+	public function populateWithBulkDataFromListingWrapper(\Reverb\ReverbSync\Model\Wrapper\Listing $listingWrapper)
+    {
+		//Get Object Manager Instance
+		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+		$model=$objectManager->create('\Reverb\Reports\Model\Reverbreport');	
+		$current_date = $this->_datetime->gmtDate();
+        $data_to_add_on_object = array();
+
+        // Fields currently being saved to the reports table:
+        //      product_id,title,product_sku ,inventory,rev_url,status,sync_details,last_synced
+        $magentoProduct = $listingWrapper->getMagentoProduct();
+        $data_to_add_on_object[self::PRODUCT_ID_FIELD] = $magentoProduct->getId();
+        $data_to_add_on_object[self::PRODUCT_SKU_FIELD] = $magentoProduct->getSku();
+        $api_call_content_data_array = $listingWrapper->getApiCallContentData();
+        foreach ($this->_api_content_fields_to_set as $field)
+        {
+            $data_to_add_on_object = $this->_addFieldIfNotEmpty($field, $data_to_add_on_object, $api_call_content_data_array);
+        }
+        $data_to_add_on_object['status'] = $listingWrapper->getStatus();
+        $data_to_add_on_object['sync_details'] = $listingWrapper->getSyncDetails();
+        $data_to_add_on_object['rev_url'] = $listingWrapper->getReverbWebUrl();
+        $data_to_add_on_object['last_synced'] = $current_date;
+        $this->updateSyncTimeToCurrentTime();
+		$model->setData($data_to_add_on_object);
+		$model->save();
+		
+    }
+	
     protected function _addFieldIfNotEmpty($field, array $array_to_add_to, array $source_data_array)
     {
         if (isset($source_data_array[$field]))

@@ -3,4 +3,7 @@
     <event name="reverb_listing_synced">
         <observer name="record_listing_observer_report" instance="\Reverb\Reports\Observer\ListingReport"/>
     </event>
+	<event name="reverb_bulk_listing_synced">
+        <observer name="record_bulk_listing_observer_report" instance="\Reverb\Reports\Observer\BulkReport"/>
+    </event>
 </config>

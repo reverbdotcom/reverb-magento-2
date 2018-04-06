@@ -7,6 +7,7 @@ class Index extends \Magento\Backend\App\Action
 //implements \Reverb\Base\Controller\Adminhtml\Form\Interface
 {
     const ERROR_CLEARING_ALL_TASKS = 'An error occurred while clearing all tasks with job code %s: %s';
+    const ERROR_BULK_SYNC_IMAGE = 'An error occurred while bulk sync images with job code %s: %s';
     const ERROR_CLEARING_SUCCESSFUL_TASKS = 'An error occurred while clearing all successful tasks with job code %s: %s';
     const SUCCESS_CLEARED_ALL_TASKS_WITH_CODE = 'Successfully cleared all tasks with code %s';
     const SUCCESS_CLEARED_SUCCESSFUL_TASKS_WITH_CODE = 'Successfully cleared all successful tasks with code %s';
@@ -36,13 +37,19 @@ class Index extends \Magento\Backend\App\Action
 
     public function __construct(Context $context, PageFactory $resultPageFactory,
         \Reverb\ProcessQueue\Model\Task\Unique $modelTaskUnique, \Reverb\ProcessQueue\Helper\Task\Processor $taskProcessor,
-            \Reverb\ReverbSync\Helper\Admin $adminhelper
+            \Reverb\ReverbSync\Helper\Admin $adminhelper,
+            \Reverb\ReverbSync\Helper\Sync\Image $syncImage,
+            \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
+            \Magento\Catalog\Model\ProductFactory $productFactory
         ) {
         parent::__construct($context);
         $this->_modelTaskUnique = $modelTaskUnique;
         $this->resultPageFactory = $resultPageFactory;
         $this->_processqueueTaskProcessor = $taskProcessor;
         $this->_adminHelper = $adminhelper;
+        $this->_syncImage = $syncImage;
+        $this->_productCollectionFactory = $productCollectionFactory;
+        $this->_productFactory = $productFactory;
     }
 
     public function execute(){
@@ -52,6 +59,8 @@ class Index extends \Magento\Backend\App\Action
             $this->clearSuccessfulTasksAction();
         } else if($action=='clearAllTasksAction'){
             $this->clearAllTasksAction();
+        } else if($action=='bulksyncImageAction'){
+            $this->bulksyncImageAction();
         }
         
         $redirecturl = 'reverbsync/reverbsync_listings/imagesync'; 
@@ -145,6 +154,34 @@ class Index extends \Magento\Backend\App\Action
             $success_message = __(self::SUCCESS_CLEARED_SUCCESSFUL_TASKS);
         }
 
+        $this->_adminHelper->addAdminSuccessMessage($success_message);
+    }
+
+    public function bulksyncImageAction()
+    {
+        try
+        {
+            $products = $this->_productCollectionFactory->create();
+            $products->addFieldToFilter('type_id', \Magento\Catalog\Model\Product\Type::TYPE_SIMPLE);
+            $products->addFieldToFilter('reverb_sync', true);
+            if(isset($products) && $products->count() > 0){
+                foreach ($products as $key => $product) {
+                    $productobj = $this->_productFactory->create()->load((int)$product->getId());
+                    $reverbSyncImageHelper = $this->_syncImage;
+                    $reverbSyncImageHelper->queueImageSyncForProductGalleryImages($productobj);    
+                }
+            }
+        }
+        catch(\Exception $e)
+        {
+            $error_message = __(sprintf(self::ERROR_BULK_SYNC_IMAGE, $task_code, $e->getMessage()));
+            $this->_adminHelper->addAdminErrorMessage($error_message);
+            $redirecturl = 'reverbsync/reverbsync_listings/imagesync'; 
+            $resultRedirect = $this->resultRedirectFactory->create();
+            $resultRedirect->setPath($redirecturl);
+            return $resultRedirect;
+        }
+        $success_message = __("Imaged queued for bulk sync. Next cron will sync all images.");
         $this->_adminHelper->addAdminSuccessMessage($success_message);
     }
 

@@ -1,6 +1,6 @@
 # Reverb Magento Plugin
 
-This is a Magento app for integrating with Reverb's API including product sync (magento->reverb) and order sync (reverb->magento).
+This is a Magento app for integrating with Reverb's API including product sync (magento->reverb) and order sync (reverb->magento). Please note that this extension is independent and separate from the Reverb Magento 1.x plugin, which was developed by a different 3rd party team.
 
 While this plugin can and does work out of the box for many sellers, it is intended as a base for you to customize for your own magento usage. It is only tested on Magento Community 2.1.8 and 2.2.1. Enterprise Edition customers are advised to have their own developers evaluate and customize the plugin for usage.
 
@@ -87,6 +87,26 @@ php bin/magento setup:upgrade
 php bin/magento cache:flush
 php bin/magento cache:clean
 ```
+The following change needs to be made in this core file:
+
+/vendor/magento/framework/DataObject/Copy/Config/Converter.php on line 41
+
+Find line 41 in above file, should look like following code:
+```
+ $fieldsetName = $fieldset->attributes->getNamedItem('id')->nodeValue;
+ $result[$fieldsetName] = $this->_convertFieldset($fieldset);
+```
+
+Replace those lines with the following:
+
+```
+if($fieldset->attributes->getNamedItem('id')){
+     $fieldsetName = $fieldset->attributes->getNamedItem('id')->nodeValue;
+     $result[$fieldsetName] = $this->_convertFieldset($fieldset);
+}
+```
+
+*Note: This is a temporary solution, follow [this issue](https://github.com/reverbdotcom/reverb-magento-2/issues/2) for updates on this fix.*
 
 ## Installation: Part 2 - Install the Cron
 
@@ -118,7 +138,9 @@ The listing sync to Reverb can be triggered in two ways:
 
 1. When you Save any Product in Magento, it will automaticaly sync to Reverb. Make sure you set "Sync to Reverb" to "Yes" on the bottom of the product page, and enable the Reverb Module in your global settings (see Part 3 of installation).
 
-2. Bulk Sync. Under the Reverb menu item, click the button "bulk sync listings". This button is temporary as the listing process is dictated by cron and triggered on a schedule, this is only a workaround until we are sure all bugs are worked out.  Please note that very large catalogs (thousands of skus) may take an hour or more to fully sync. Please refresh the page to see the sync report.
+2. Bulk Sync. Under the Reverb menu item, navigate to the Listings page.  On the top right of this page, click the button "Sync All Products".  Please note that very large catalogs (thousands of skus) may take an hour or more to fully sync. Please refresh the page to see the sync report, which will populate once the process is complete.
+
+After you have synced your products, go to the Image Sync page.  Click "Sync All Images" to intiate the image sync process.  Refresh the page to see the sync report.
 
 ## Usage - Order Sync
 
@@ -176,7 +198,7 @@ if($fieldset->attributes->getNamedItem('id')){
 
 ## Support and Announcements
 
-Please join the [Reverb Magento Support Group](https://groups.google.com/forum/#!forum/reverb-magento)
+Please use the issue tracker in this repository if you require any support.  Click the "Watch" button for this repository if you would like be be notified of updates.
 
 ## Contributing
 

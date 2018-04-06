@@ -35,7 +35,13 @@ class Syncing extends \Magento\Backend\Block\Widget\Container
             'action_url' => $this->_backendurl->getUrl('reverbsync/reverbsync_listings/sync',array('action'=>'clearSuccessfulTasks')),
             'label' => 'Clear Successful Sync Tasks'
         );
+		
+		$sync_all_products_button = array(
+            'action_url' => $this->_backendurl->getUrl('reverbsync/reverbsync_listings/sync',array('action'=>'bulkSync')),
+            'label' => 'Sync All Products'
+        );
 
+		$action_buttons_array['sync_all_products'] = $sync_all_products_button;
         $action_buttons_array['clear_all_sync_tasks'] = $clear_all_tasks_button;
         $action_buttons_array['clear_successful_sync_tasks'] = $clear_successful_tasks_button;
         $action_buttons_array['bulk_product_sync'] = $bulk_sync_process_button;

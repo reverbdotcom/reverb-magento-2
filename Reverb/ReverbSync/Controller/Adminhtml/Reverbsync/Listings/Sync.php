@@ -9,7 +9,7 @@ class Sync extends \Magento\Backend\App\Action{
     const BULK_SYNC_EXCEPTION = 'Error executing the Reverb Bulk Product Sync via the admin panel: %s';
     const EXCEPTION_CLEARING_ALL_LISTING_TASKS = 'An error occurred while clearing all listing tasks from the system: %s';
     const ERROR_CLEARING_SUCCESSFUL_SYNC = 'An error occurred while clearing successful listing syncs: %s';
-    const SUCCESS_BULK_SYNC_QUEUED_UP = '%s products have been queued for sync. Please wait a few minutes and refresh this page...';
+    const SUCCESS_BULK_SYNC_QUEUED_UP = '%s products have been queued for sync. Next cron will sync products and after that you will be able to see listing status below.';
     const EXCEPTION_STOP_BULK_SYNC = 'Error attempting to stop all reverb listing sync tasks: %s';
     const SUCCESS_STOPPED_LISTING_SYNCS = 'Stopped all pending Reverb Listing Sync tasks';
     const SUCCESS_CLEAR_LISTING_SYNCS = 'All listing sync tasks have been deleted';
@@ -37,7 +37,8 @@ class Sync extends \Magento\Backend\App\Action{
         \Reverb\ProcessQueue\Model\Resource\Taskresource $taskResource,
         \Reverb\Reports\Model\Resource\Reverbreport $reverbreportResource,
         \Reverb\ReverbSync\Helper\Admin $adminHelper,
-        \Reverb\ReverbSync\Helper\Sync\Product $syncProductHelper
+        \Reverb\ReverbSync\Helper\Sync\Product $syncProductHelper,
+        \Reverb\ReverbSync\Helper\Task\Processor $taskprocessor
     ) {
         parent::__construct($context);
         $this->_taskResource = $taskResource;
@@ -47,6 +48,7 @@ class Sync extends \Magento\Backend\App\Action{
         $this->_adminHelper = $adminHelper;
         $this->_backendUrl = $context->getBackendUrl();
         $this->_syncProductHelper = $syncProductHelper;
+        $this->_taskprocessor = $taskprocessor;
     }
     public function execute(){
         $action = $this->_request->getParam('action');
@@ -56,6 +58,8 @@ class Sync extends \Magento\Backend\App\Action{
             $this->clearSuccessfulTasksAction();
         } else if($action=='stopBulkSync'){
             $this->stopBulkSyncAction();
+        }else if($action=='bulkSync'){
+            $this->bulkSyncAction();
         }
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         $resultRedirect->setUrl($this->_redirect->getRefererUrl());
@@ -68,10 +72,19 @@ class Sync extends \Magento\Backend\App\Action{
 
     public function bulkSyncAction()
     {
+	
         try
         {
             $this->_syncProductHelper->deleteAllListingSyncTasks();
-            $number_of_syncs_queued_up = $this->_syncProductHelper->queueUpBulkProductDataSync();
+			$reverb_report_rows_deleted = $this->_syncProductHelper->deleteAllReverbReportRows();
+            //$number_of_syncs_queued_up = $this->_syncProductHelper->queueUpBulkProductDataSync();
+            $all_product_ids = $this->_syncProductHelper->getNewReverbSyncEligibleProductIds();
+            if(isset($all_product_ids) && is_array($all_product_ids) && !empty($all_product_ids)){
+                $this->_taskprocessor->queueListingsSyncByProductIds($all_product_ids);
+                $success_message = __(sprintf(self::SUCCESS_BULK_SYNC_QUEUED_UP, count($all_product_ids)));
+            } else {
+                $success_message = __("No products found to add in queue.");
+            }
         }
         catch(\Reverb\ReverbSync\Model\Exception\Redirect $redirectException)
         {
@@ -89,8 +102,6 @@ class Sync extends \Magento\Backend\App\Action{
             $resultRedirect->setUrl($this->_redirect->getRefererUrl());
             return $resultRedirect;
         }
-
-        $success_message = __(sprintf(self::SUCCESS_BULK_SYNC_QUEUED_UP, $number_of_syncs_queued_up));
         $this->_adminHelper->addAdminSuccessMessage($success_message);
     }
 

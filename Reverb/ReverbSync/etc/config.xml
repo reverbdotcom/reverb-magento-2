@@ -15,7 +15,7 @@
         <offers_enabled>1</offers_enabled>
       </reverbDefault>
       <extension>
-        <revUrl>https://sandbox.reverb.com</revUrl>
+        <revUrl>https://reverb.com</revUrl>
       </extension>
       <listings_update_switches>
         <title>0</title>
@@ -48,7 +48,7 @@
         <enable_logging>0</enable_logging>
       </extensionOption_group>
       <extension>
-        <revurl>https://sandbox.reverb.com</revurl>
+        <revurl>https://reverb.com</revurl>
       </extension>
     </reverbsync>
   </default>

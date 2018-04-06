@@ -62,6 +62,16 @@ class Imagesync extends \Magento\Backend\Block\Widget\Grid\Container{
     {
         $buttons_to_render = array();
         $task_code_param = 'listing_image_sync';
+        $bulksyncImageUrl = 'reverbprocessqueue/processqueue/index';
+
+        $bulksyncImage = array(
+            'action_url' => $this->_backendUrl->getUrl($bulksyncImageUrl,
+                                                                        array('task_codes' => $task_code_param,'type'=>'bulksyncImageAction')
+                                                                    ),
+            'label' => 'Sync All Images',
+            'confirm_message' => 'Are you sure you want to sync all images?'
+        );
+
         $clear_all_tasks_action = 'reverbprocessqueue/processqueue/index';
 
         $clear_all_tasks_button = array(
@@ -81,8 +91,10 @@ class Imagesync extends \Magento\Backend\Block\Widget\Grid\Container{
             'confirm_message' => 'Are you sure you want to clear all successful tasks?'
         );
 
+        $buttons_to_render['bulk_sync_image'] = $bulksyncImage;
         $buttons_to_render['clear_all_sync_tasks'] = $clear_all_tasks_button;
         $buttons_to_render['clear_successful_sync_tasks'] = $clear_successful_tasks_button;
+
 
         foreach ($buttons_to_render as $button_id => $button)
         {

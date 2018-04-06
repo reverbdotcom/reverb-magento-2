@@ -29,7 +29,7 @@ class Sync extends Cronabstract implements Croninterface
     {
         try
         {
-            $this->_logError('check Image sync cron is running');
+            //$this->_logError('check Image sync cron is running');
             $this->_taskprocessorUnique->processQueueTasks('listing_image_sync');
         }
         catch(\Exception $e)

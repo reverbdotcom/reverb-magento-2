@@ -36,6 +36,12 @@ class Processor extends \Magento\Framework\App\Helper\AbstractHelper
 
         return $number_of_successfully_queued_syncs;
     }
+	
+	public function queueListingsBulkSyncByProductIds(array $product_ids_in_system)
+    {
+        $number_of_products = count($product_ids_in_system);
+        return $number_of_products;
+    }
 
     /**
      * @return Reverb_ReverbSync_Model_Mysql4_Task_Listing

@@ -9,9 +9,9 @@
        <add id="Reverb_ReverbSync::reverb_order_unique_task_sync" title="Shipment Tracking" module="Reverb_ReverbSync" action="reverbsync/reverbsync_orders_sync/unique" sortOrder="40" parent="Reverb_ReverbSync::reverb" resource="Reverb_ReverbSync::reverb_order_unique_task_sync"/>
        <add id="Reverb_ReverbSync::reverb_order_task_sync" title="Order Updates" module="Reverb_ReverbSync" action="reverbsync/reverbsync_orders/sync" sortOrder="50" parent="Reverb_ReverbSync::reverb" resource="Reverb_ReverbSync::reverb_order_task_sync"/>
        <add id="Reverb_ReverbSync::reverb_field_sync" title="Field Mapping" module="Reverb_ReverbSync" action="reverbsync/reverbsync_field/mapping" sortOrder="60" parent="Reverb_ReverbSync::reverb" resource="Reverb_ReverbSync::reverb_field_sync"/>
-       <add id="Reverb_ReverbSync::reverb_listings_sync2" title="Bulk Sync Listings" module="Reverb_ReverbSync" sortOrder="70" action="reverbsync/reverbsync/listingsync" resource="Reverb_ReverbSync::reverb_listings_sync2" parent="Reverb_ReverbSync::reverb"/>
-       
+       <!--<add id="Reverb_ReverbSync::reverb_listings_sync2" title="Test product sync process" module="Reverb_ReverbSync" sortOrder="70" action="reverbsync/reverbsync/listingsync" resource="Reverb_ReverbSync::reverb_listings_sync2" parent="Reverb_ReverbSync::reverb"/> -->
        <!--<add id="Reverb_ReverbSync::reverb_listings_sync3" title="Test sync Image process" module="Reverb_ReverbSync" sortOrder="75" action="reverbsync/reverbsync/listingsyncimage" resource="Reverb_ReverbSync::reverb_listings_sync2" parent="Reverb_ReverbSync::reverb"/> -->
+
        <!--<add id="Reverb_ReverbSync::reverb_sync_order" title="Test Order sync" module="Reverb_ReverbSync" action="reverbsync/reverbsync/listingsyncorder" sortOrder="90" parent="Reverb_ReverbSync::reverb" resource="Reverb_ReverbSync::reverb_sync_order"/> -->
        <!-- <add id="Reverb_ReverbSync::reverb_categorymapp" title="Test Category Mapp" module="Reverb_ReverbSync" action="reverbsync/reverbsync_category/updatecategories" sortOrder="100" parent="Reverb_ReverbSync::reverb" resource="Reverb_ReverbSync::reverb_categorymapp"/> -->
     </menu>

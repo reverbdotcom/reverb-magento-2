@@ -65,6 +65,9 @@ abstract class Retrievalabstract
             {
                 return false;
             }
+            if ( isset( $reverbOrdersJsonObject ) && !property_exists( $reverbOrdersJsonObject, 'orders' ) ) {
+                return false;
+            }
 
             $orders_array = $reverbOrdersJsonObject->orders;
             if (!is_array($orders_array))

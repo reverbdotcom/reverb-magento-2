@@ -185,6 +185,8 @@ class Taskresource extends AbstractDb{
 
     public function queueListingSyncsByProductIds(array $product_ids_in_system)
     {
+/* 		echo $this->getMainTable();exit;
+ */		
         $insert_data_array_template = $this->_getInsertDataArrayTemplate();
         $data_array_to_insert = array();
         foreach ($product_ids_in_system as $product_id)
@@ -195,7 +197,7 @@ class Taskresource extends AbstractDb{
 
             $data_array_to_insert[] = $product_data_array;
         }
-        
+		
         $columns_array = $this->_getInsertColumnsArray();
         $number_of_created_rows = $this->getConnection()->insertArray(
             $this->getMainTable(), $columns_array, $data_array_to_insert
@@ -206,6 +208,8 @@ class Taskresource extends AbstractDb{
     public function deleteAllListingSyncTasks()
     {
         $where_condition_array = array('code=?' => self::LISTING_TASK_CODE);
+		//echo $this->getMainTable();
+		//exit;
         $rows_deleted = $this->getConnection()->delete($this->getMainTable(), $where_condition_array);
         return $rows_deleted;
     }
