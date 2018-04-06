@@ -125,6 +125,7 @@ or
 If your crontab does not contain either of these examples, please use `crontab -e` to edit it and copy the second line (`cron.sh`) into your crontab.
 
 
+
 ## Installation: Part 3 - Configuration
 
 * In Magento Admin, go to Stores -> Configuration -> Reverb Configuration
