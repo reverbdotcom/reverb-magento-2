@@ -62,13 +62,13 @@ Please follow the instructions below to download and install the app. This assum
 cd /path/to/magento
 
 # Download the release
-cd /tmp && wget https://github.com/reverbdotcom/reverb-magento-2/archive/1.0.6.tar.gz
+cd /tmp && wget https://github.com/reverbdotcom/reverb-magento-2/archive/1.0.7.tar.gz
 
 # Unzip the release
-tar zxvf 1.0.6.tar.gz 
+tar zxvf 1.0.7.tar.gz 
 
 # Copy everything from the app folder into your magento app
-rsync -avzp reverb-magento-2-1.0.6/* /path/to/magento/app/code/
+rsync -avzp reverb-magento-2-1.0.7/* /path/to/magento/app/code/
 
 # Enable All Reverb Modules
 php bin/magento module:enable Reverb_Base
