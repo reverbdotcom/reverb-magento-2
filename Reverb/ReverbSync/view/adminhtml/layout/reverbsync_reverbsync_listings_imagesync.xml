@@ -2,8 +2,8 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="content">
-        	<block class="\Reverb\ProcessQueue\Block\Adminhtml\Index" name="reverbprocessqueue.grid.widget" />
-            <block class="Reverb\ReverbSync\Block\Adminhtml\Listings\Imagesync" name="reverbsyncimage.grid.container" after="-" />
+        	<block class="Reverb\ProcessQueue\Block\Adminhtml\Index" name="reverbprocessqueue.grid.widget" />
+        	<block class="Reverb\ReverbSync\Block\Adminhtml\Listings\Imagesync" name="reverbsyncimage.grid.container" />
         </referenceContainer>
     </body>
 </page>

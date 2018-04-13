@@ -22,11 +22,11 @@ class BulkReport implements ObserverInterface
      */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        {
+        try {
             $reverbListingWrapper = $observer->getReverbListing();
             $this->_reportHelper->logListingSyncReport($reverbListingWrapper);
         }
-        catch(Exception $e)
+        catch(\Exception $e)
         {
             echo $e->getMessage();
             exit;

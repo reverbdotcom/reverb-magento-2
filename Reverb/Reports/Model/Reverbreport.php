@@ -67,9 +67,9 @@ class Reverbreport extends AbstractModel
     public function populateWithDataFromListingWrapper(\Reverb\ReverbSync\Model\Wrapper\Listing $listingWrapper)
     {
 		//Get Object Manager Instance
-		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+	/*	$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 		$model=$objectManager->create('\Reverb\Reports\Model\Reverbreport');	
-		$current_date = $this->_datetime->gmtDate();
+		$current_date = $this->_datetime->gmtDate();*/
         $data_to_add_on_object = array();
 
         // Fields currently being saved to the reports table:
@@ -86,11 +86,11 @@ class Reverbreport extends AbstractModel
         $data_to_add_on_object['status'] = $listingWrapper->getStatus();
         $data_to_add_on_object['sync_details'] = $listingWrapper->getSyncDetails();
         $data_to_add_on_object['rev_url'] = $listingWrapper->getReverbWebUrl();
-		$data_to_add_on_object['last_synced'] = $current_date;
+		/*$data_to_add_on_object['last_synced'] = $current_date;*/
         $this->addData($data_to_add_on_object);
         $this->updateSyncTimeToCurrentTime();
-		$model->setData($data_to_add_on_object);
-		$model->save();
+		/*$model->setData($data_to_add_on_object);
+		$model->save();*/
     }
 
 	public function populateWithBulkDataFromListingWrapper(\Reverb\ReverbSync\Model\Wrapper\Listing $listingWrapper)

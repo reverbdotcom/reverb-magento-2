@@ -161,6 +161,8 @@ class Index extends \Magento\Backend\App\Action
     {
         try
         {
+            $task_code = $this->getRequest()->getParam('task_codes', null);
+
             $products = $this->_productCollectionFactory->create();
             $products->addFieldToFilter('type_id', \Magento\Catalog\Model\Product\Type::TYPE_SIMPLE);
             $products->addFieldToFilter('reverb_sync', true);

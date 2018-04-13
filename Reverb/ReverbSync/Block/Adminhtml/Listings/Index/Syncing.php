@@ -14,10 +14,11 @@ class Syncing extends \Magento\Backend\Block\Widget\Container
         $this->_taskprocessorHelper = $taskprocessorHelper;
         $this->_backendurl = $backendUrl;
         $block_module_groupname = "ReverbSync";
-
+        
+        
         $this->_objectId = 'reverb_stop_product_sync_container';
-        $this->setTemplate('widget/view/container.phtml');
-        $this->_headerText = 'testtt';
+        $this->setTemplate('Magento_Backend::widget/view/container.phtml');
+        $this->_headerText = 'testtt'; 
 
         parent::__construct($context,$data);
 
