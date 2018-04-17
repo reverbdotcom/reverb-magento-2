@@ -23,9 +23,18 @@ class Sync extends \Reverb\ReverbSync\Model\Resource\Task\Unique
 
         $serialized_arguments_value = serialize($arguments_data_to_serialize);
         $insert_data_array['serialized_arguments_object'] = $serialized_arguments_value;
-
-        $number_of_inserted_rows = $this->getConnection()->insert($this->getMainTable(), $insert_data_array);
-
+        try {
+            if(isset($insert_data_array['subject_id']) && !empty($insert_data_array['subject_id']) && $insert_data_array['subject_id']!='akg-d5-lx-professional-dynamic-vocal-microphone-1.jpg' ) {
+                $number_of_inserted_rows = $this->getConnection()->insert($this->getMainTable(), $insert_data_array);
+            } else {
+                $number_of_inserted_rows = 0;
+            }
+        }catch(\Exception $e){
+           /* echo 'error message in file = '__FILE__.', method = '.__FUNCTION__;
+            print_r($insert_data_array);
+            echo $e->getMessage();
+            exit;*/
+        }
         return $number_of_inserted_rows;
     }
 

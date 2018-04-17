@@ -224,7 +224,9 @@ class Product
         // Get default value if condition is not set
         if (empty($_product_condition))
             $_product_condition = $this->_scopeConfig->getValue(self::LISTING_DEFAULT_CONDITION_CONFIG_PATH);
-
+        if($_product_condition =='Non Functioning'){
+            $_product_condition = $this->_scopeConfig->getValue(self::LISTING_DEFAULT_CONDITION_CONFIG_PATH);
+        }
         if (!empty($_product_condition) && $this->_getReverbConditionSourceModel()->isValidConditionValue($_product_condition))
             $fieldsArray['condition'] = $_product_condition;
 

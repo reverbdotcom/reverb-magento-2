@@ -32,7 +32,7 @@ class Taskresource extends AbstractDb{
 
         $uniquefield = 'task_id';
         if($taskObject instanceOf \Reverb\ProcessQueue\Model\Task\Unique){
-            $uniquefield = 'unique_id';   
+            $uniquefield = 'task_id';   
         }
 
         $select = $this->getConnection()->select()
@@ -56,7 +56,7 @@ class Taskresource extends AbstractDb{
         
         $uniquefield = 'task_id';
         if($taskObject instanceOf \Reverb\ProcessQueue\Model\Task\Unique){
-            $uniquefield = 'unique_id';   
+            $uniquefield = 'task_id';   
         }
 
         // Status here can be PENDING or ERROR
@@ -94,7 +94,7 @@ class Taskresource extends AbstractDb{
         }
         $uniquefield = 'task_id';
         if($taskObject instanceOf \Reverb\ProcessQueue\Model\Task\Unique){
-            $uniquefield = 'unique_id';   
+            $uniquefield = 'task_id';   
         }
 
         if ($taskObject->isStatusValid($execution_status))

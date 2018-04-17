@@ -13,7 +13,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper implements \Reve
 
     // In the event that no configuration value was returned for the base url, default to the sandbox URL
     // It's better to make erroneous calls to the sandbox than to production
-    const DEFAULT_REVERB_BASE_API_URL = 'https://reverb.com';
+    const DEFAULT_REVERB_BASE_API_URL = 'https://sandbox.reverb.com';
 
     const API_CALL_LOG_TEMPLATE = "\n%s\n%s\n%s\n%s\n";
 

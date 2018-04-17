@@ -51,7 +51,7 @@ class Actontask extends \Magento\Backend\App\Action
         }
         $_quote_task = $_quote_task->load($task_id);
         
-        if ((!is_object($_quote_task)) || (!$_quote_task->getId())) {
+        if ((!is_object($_quote_task)) || (!$_quote_task->getTaskId())) {
             $error_message = __(\Reverb\ProcessQueue\Controller\Adminhtml\Processqueue\Index::EXCEPTION_INVALID_TASK_ID, $_controller_description, $task_id);
             $this->_adminHelper->addAdminErrorMessage($error_message);
         }
@@ -68,7 +68,7 @@ class Actontask extends \Magento\Backend\App\Action
         }
 
         $action_text = $_quote_task->getActionText();
-        $notice_message = sprintf(\Reverb\ProcessQueue\Controller\Adminhtml\Processqueue\Index::NOTICE_TASK_ACTION, $_controller_description, $task_id); //,$action_text
+        $notice_message = sprintf('%s, Task ID=%s is executed.', $_controller_description, $task_id); //,$action_text
         $this->_adminHelper->addNotice($notice_message);
         
         $resultRedirect = $this->resultRedirectFactory->create();

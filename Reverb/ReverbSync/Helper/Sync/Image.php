@@ -13,10 +13,12 @@ class Image extends \Magento\Framework\App\Helper\AbstractHelper
 
     public function __construct(
         \Reverb\Base\Helper\Product $baseHelperProduct,
-        \Reverb\ReverbSync\Model\Resource\Task\Image\Sync $taskImageSync
+        \Reverb\ReverbSync\Model\Resource\Task\Image\Sync $taskImageSync,
+        \Reverb\ReverbSync\Model\Log $reverbLog
     ) {
         $this->_baseProductHelper = $baseHelperProduct;
         $this->_taskImageSync = $taskImageSync;
+        $this->_reverbLog = $reverbLog;
     }
 
     /**
@@ -32,7 +34,7 @@ class Image extends \Magento\Framework\App\Helper\AbstractHelper
         {
             $gallery_image_items = $this->_getGalleryImageItemsForProductListing($product);
         }
-        catch(Exception $e)
+        catch(\Exception $e)
         {
             // Do nothing here under the assumption that this product has no gallery images
             return $images_queued_for_sync;
@@ -52,7 +54,7 @@ class Image extends \Magento\Framework\App\Helper\AbstractHelper
                 $queue_task_rows_inserted = $this->processListingGalleryImageSyncIfNecessary($sku, $galleryImageObject);
                 $images_queued_for_sync = $images_queued_for_sync + $queue_task_rows_inserted;
             }
-            catch(Exception $e)
+            catch(\Exception $e)
             {
                 $error_message = $this->__(self::ERROR_PROCESSING_GALLERY_IMAGE_LISTING_SYNC, $galleryImageObject->getValueId(), $sku, $e->getMessage());
                 $errors_to_throw[] = $error_message;
@@ -63,7 +65,7 @@ class Image extends \Magento\Framework\App\Helper\AbstractHelper
         if (!empty($errors_to_throw))
         {
             $error_message_string = implode('; ',  $errors_to_throw);
-            throw new Reverb_ReverbSync_Model_Exception_Listing_Image_Sync($error_message_string);
+            throw new \Reverb\ReverbSync\Model\Exception\Listing\Image\Sync($error_message_string);
         }
 
         return $images_queued_for_sync;
@@ -98,7 +100,7 @@ class Image extends \Magento\Framework\App\Helper\AbstractHelper
         {
             $galleryImagesCollection = $product->getMediaGalleryImages();
         }
-        catch(Exception $e)
+        catch(\Exception $e)
         {
             // Do nothing here under the assumption that this product has no gallery images
             return array();
@@ -166,6 +168,6 @@ class Image extends \Magento\Framework\App\Helper\AbstractHelper
 
     protected function _logError($error_message)
     {
-        Mage::getSingleton('reverbSync/log')->logListingImageSyncError($error_message);
+        $this->_reverbLog->logListingImageSyncError($error_message);
     }
 } 

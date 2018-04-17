@@ -26,8 +26,8 @@ class Processor extends \Magento\Framework\App\Helper\AbstractHelper
     protected $_taskresourceUnique;
 
     public function __construct(
-        \Reverb\ProcessQueue\Model\Resource\Taskresource\Unique\Collection $_imageSyncCollection,
-        \Reverb\ProcessQueue\Model\Resource\Taskresource\Collection $taskCollection,
+        \Reverb\ProcessQueue\Model\Resource\Taskresource\Unique\CollectionFactory $_imageSyncCollection,
+        \Reverb\ProcessQueue\Model\Resource\Taskresource\CollectionFactory $taskCollection,
         \Reverb\ProcessQueue\Model\Resource\Taskresource $taskresource,
         \Reverb\ProcessQueue\Model\Resource\Taskresource\Unique $taskresourceUnique,
         \Reverb\ReverbSync\Model\Logger $logger
@@ -106,7 +106,6 @@ class Processor extends \Magento\Framework\App\Helper\AbstractHelper
         }
         catch(\Exception $e)
         {
-            
             $taskResourceSingleton->rollBack();
             $error_message = __(sprintf(self::EXCEPTION_SELECT_FOR_UPDATE, $processQueueTaskObject->getId(), $e->getMessage()));
             $this->_logger->info('file: '.__FILE__.',function = '.__FUNCTION__.', error = '.$error_message);
@@ -258,11 +257,11 @@ class Processor extends \Magento\Framework\App\Helper\AbstractHelper
     protected function _gettaskCollectionModel($code=null)
     {
         if(!empty($code) && $code=='listing_image_sync'){
-            return $this->_imageSyncCollection;
+            return $this->_imageSyncCollection->create();
         } else if(!empty($code) && $code=='shipment_tracking_sync'){
-            return $this->_imageSyncCollection;
+            return $this->_imageSyncCollection->create();
         } else {
-            return $this->_taskCollection;
+            return $this->_taskCollection->create();
         }
     }
 

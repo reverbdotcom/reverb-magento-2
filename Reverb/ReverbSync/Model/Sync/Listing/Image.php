@@ -45,6 +45,6 @@ class Image extends \Reverb\ProcessQueue\Model\Task
             return $this->_returnAbortCallbackResult($error_message);
         }
 
-        $this->_adapterListingsImage->transmitGalleryImageToReverb($sku, $image_url);
+        return $this->_adapterListingsImage->transmitGalleryImageToReverb($sku, $image_url);
     }
 }
