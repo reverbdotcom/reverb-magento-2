@@ -87,9 +87,9 @@ class Task extends AbstractModel implements ModelTaskInterface
 
         // We don't know for sure what is being returned here
             $methodCallbackResult = $object->$method($argumentsObject);
-           /* echo '<pre>';
+            /*echo '<pre>';
             print_r($methodCallbackResult);
-            exit;*/ 
+            echo '</pre>';*/
         // If the method didn't return a Task_Result object
         if (!($methodCallbackResult instanceof \Reverb\ProcessQueue\Model\Task\Result\Interfaceclass))
         {
@@ -112,9 +112,15 @@ class Task extends AbstractModel implements ModelTaskInterface
         {
             // Assume completion
             $execution_status = self::STATUS_COMPLETE;
+        
         }
-
         $status_message = $taskExecutionResult->getTaskStatusMessage();
+        if($status_message==''){
+            $resultobj = $taskExecutionResult->getMethodCallbackResult();
+            if(isset($resultobj['message'])){
+                $status_message = $resultobj['message'];
+            }
+        }
         $this->getResource()->setExecutionStatusForTask($execution_status, $this, $status_message);
         // TODO Log error message if $execution_status isn't a valid status
     }
