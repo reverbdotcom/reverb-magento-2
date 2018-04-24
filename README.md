@@ -146,6 +146,16 @@ After you have synced your products, go to the Image Sync page.  Click "Sync All
 
 Orders are automatically synced on a five minute cron timer. If you aren't seeing orders, please visit the Order Sync tab under Reverb and click the 'Download and Process Order Updates' button to manually sync them. If you are experiencing any issues with periodic syncing please create a new issue.
 
+The integration is grabbing all orders placed from Reverb in the past 24 hours. Each grab will get duplicate orders, which leads to the same orders populating the task feed on each request.  Despite orders appearing in the task feed multiple times they cannot be processed twice. Even if the same order is processed multiple times it will not be duplicated and will only appear once under Sales -> Orders.
+
+To process your orders, go to the Reverb -> Order Updates page and click on "download and process order updates."  This will populate orders into your sales page.
+
+To see your Reverb specific orders navigate to Sales -> Orders.  In your search bar type in 'reverb' to display all reverb related orders.
+
+When clicking on an order you can assign it to the desired store (or click "Run automatic assignation").  You can also click on "Ship" to input shipping information and complete the order.
+
+To verify that the shipment has synced, navigate to Reverb -> Shipment Tracking to verify that the shipment has synced to Reverb (or the reverse if marking your shipment on Reverb)
+
 *Note: if orders will not complete OR if you receive an error message when using manual download/processing buttons please refer to the final item in the troubleshooting section, "Can't create invoice / paypal won't work / can't add item to cart / Order sync will not complete"*
 
 * **Orders are synced only 24 hours into the past** if you just installed the extension and want to sync older orders, please edit the file at app/code/Reverb/ReverbSync/Helper/Orders/Retrieval/Update.php and change MINUTES_IN_PAST_FOR_CREATION_QUERY to the number in minutes you want to go into the past. For 3 days, use 3 * 60 * 24 = 4320
