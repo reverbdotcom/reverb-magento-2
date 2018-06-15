@@ -2,7 +2,7 @@
 
 This is a Magento app for integrating with Reverb's API including product sync (magento->reverb) and order sync (reverb->magento). Please note that this extension is independent and separate from the Reverb Magento 1.x plugin, which was developed by a different 3rd party team.
 
-While this plugin can and does work out of the box for many sellers, it is intended as a base for you to customize for your own magento usage. It is only tested on Magento Community 2.1.8 and 2.2.1. Enterprise Edition customers are advised to have their own developers evaluate and customize the plugin for usage.
+While this plugin can and does work out of the box for many sellers, it is intended as a base for you to customize for your own magento usage. It is only tested on Magento Community 2.2.3. Enterprise Edition customers are advised to have their own developers evaluate and customize the plugin for usage.
 
 Please read this entire README prior to installing the application.
 
