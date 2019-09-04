@@ -37,6 +37,23 @@ class Tracking extends \Reverb\ProcessQueue\Model\Task
         'ups' => 'UPS',
         'usps' => 'USPS',
         'canada_post' => 'Canada Post',
+        'dpd_uk' => 'DPD UK',
+        'dpd_france' => 'DPD France',
+        'dpd_germany' => 'DPD Germany',
+        'ukraine_post' => 'Ukraine Post',
+        'correos_espana' => 'Correos España',
+        'interlogistica' => 'Interlogistica',
+        'purolator' => 'Purolator',
+        'parcelforce' => 'Parcelforce',
+        'china_post' => 'China Post',
+        'la_poste' => 'La Poste',
+        'gls' => 'GLS',
+        'ems' => 'EMS',
+        'australia_post' => 'Australia Post',
+        'post_nl' => 'PostNL',
+        'royal_mail' => 'Royal Mail',
+        'dhl_deutschland' => 'DHL Deutschland',
+        'dhl_express' => 'DHLExpress',
     );
 
     public function transmitTrackingDataToReverb($argumentsObject)
