@@ -11,7 +11,7 @@ abstract class Retrievalabstract
 
     protected $_logModel = null;
     protected $_orderTaskResourceSingleton = null;
-    
+
     protected $_orderSyncHelper = null;
 
     protected $_reverblogger;
@@ -120,7 +120,7 @@ abstract class Retrievalabstract
         }
 
         try
-        { 
+        {
            $row_was_inserted = $this->queueOrderActionByReverbOrderDataObject($orderDataObject);
 
             if (empty($row_was_inserted))
@@ -142,7 +142,7 @@ abstract class Retrievalabstract
     {
         $base_url = $this->_reverbSyncHelper->getReverbBaseUrl();
         $api_url = $base_url . $api_url_path;
-        
+
         $curlResource = $this->_reverbSyncHelper->getCurlResource($api_url);
         //Execute the API call
         $json_response = $curlResource->read();
@@ -152,10 +152,10 @@ abstract class Retrievalabstract
         // Log the Response
         $curlResource->logRequest();
         $curlResource->close();
-        
+
         //comment log
-        //$this->logApiCall($api_url_path, $json_response, $this->getAPICallDescription(), $status);
- 
+        $this->logApiCall($api_url_path, $json_response, $this->getAPICallDescription(), $status);
+
         if (!empty($curl_error_message))
         {
             $this->_logError('FILE =='.__FILE__.', method ='.__FUNCTION__.',message= '.$curl_error_message);
@@ -174,7 +174,7 @@ abstract class Retrievalabstract
         $minutes_in_past_for_api_call = $this->_getMinutesInPastForAPICall();
         $past_timestamp_local_timezone = $local_timezone_timestamp - (300 * $minutes_in_past_for_api_call);
         $past_gmt_datetime = $this->_datetime->gmtDate('c', $past_timestamp_local_timezone);
-        
+
         $api_url_path = sprintf($api_call_url_path_template, $past_gmt_datetime);
         $api_url_path = str_replace('+', '-', $api_url_path);
 

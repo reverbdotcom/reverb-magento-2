@@ -10,7 +10,7 @@ class Listingsyncorder extends \Magento\Backend\App\Action{
      * @var PageFactory
      */
     protected $resultPageFactory;
-    
+
     public function __construct(Context $context, PageFactory $resultPageFactory) {
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
@@ -26,17 +26,17 @@ class Listingsyncorder extends \Magento\Backend\App\Action{
     	$syncobj = $objectManager->create('Reverb\ReverbSync\Model\Cron\Orders\Update');
     	$syncobj->attemptCronExecution();
         echo 'success';
-    	exit; 
+    	exit;
     	} catch(\Exception $e){
     		echo 'logging error = ';
     		echo $e->getMessage();
     	}
 
 
-        /*$resultPage = $this->resultPageFactory->create();
+        $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Reverb_ReverbSync::reverb_listings_sync');
         $resultPage->getConfig()->getTitle()->prepend((__('Reverb Listing Sync')));
-        return $resultPage;*/
+        return $resultPage;
     }
 }
 ?>
