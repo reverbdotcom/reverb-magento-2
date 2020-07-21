@@ -30,7 +30,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper implements \Reve
     protected $_getLogSingleton = null;
 
     protected $_modelWrapperListing;
-    
+
     protected $_adapterCurl;
 
     protected $_scopeConfig;
@@ -135,11 +135,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper implements \Reve
             // Log Exception on reports row
             $listingWrapper->setSyncDetails($e->getMessage());
             $listingWrapper->setStatus(self::LISTING_STATUS_ERROR);
-        }		
+        }
         $this->eventManager->dispatch('reverb_listing_synced', ['reverb_listing' => $listingWrapper]);
         return $listingWrapper;
     }
-	
+
 	public function createOrUpdateReverbBulkListing($product, $do_not_allow_creation = false)
     {
         // Create empty wrapper in the event an exception is thrown
@@ -205,7 +205,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper implements \Reve
             // Log Exception on reports row
             $listingWrapper->setSyncDetails($e->getMessage());
             $listingWrapper->setStatus(self::LISTING_STATUS_ERROR);
-        }		
+        }
         $this->eventManager->dispatch('reverb_listing_synced', ['reverb_listing' => $listingWrapper]);
         return $listingWrapper;
     }
@@ -240,10 +240,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper implements \Reve
         $curlResource->logRequest();
         // Close the CURL Resource
         $curlResource->close();
-       
-        //comment log 
-        //$this->_logApiCall($content, $post_response_as_json, 'createObject', $status);
-        
+
+        //comment log
+        $this->_logApiCall($content, $post_response_as_json, 'createObject', $status);
+
         $response = json_decode($post_response_as_json, true);
 
         if (is_null($response))
@@ -312,7 +312,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper implements \Reve
         // Log the response
         $params = "state=all&sku=" . $magento_sku;
         //comment log
-        //$this->_logApiCall($params, $json_response, 'findReverbListingUrlByMagentoSku', $status);
+        $this->_logApiCall($params, $json_response, 'findReverbListingUrlByMagentoSku', $status);
 
         $response = json_decode($json_response, true);
 
@@ -378,9 +378,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper implements \Reve
         $curlResource->logRequest();
         // Close the CURL Resource
         $curlResource->close();
-        
+
         //comment log
-        //$this->_logApiCall($content, $put_response_as_json, 'updateObject', $status);
+        $this->_logApiCall($content, $put_response_as_json, 'updateObject', $status);
 
         $response = json_decode($put_response_as_json, true);
 
@@ -427,11 +427,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper implements \Reve
         $curlResource->logRequest();
         // Close the CURL Resource
         $curlResource->close();
-        
-        //comment log
-        //$this->_logApiCall($content_body, $response_as_json, $this->getApiLogFileSuffix(), $status);
 
-        
+        //comment log
+        $this->_logApiCall($content_body, $response_as_json, $this->getApiLogFileSuffix(), $status);
+
+
         $response_as_array = json_decode($response_as_json, true);
         // Ensure the status code is of the form 2xx
         if (!$this->_isStatusSuccessful($status))
