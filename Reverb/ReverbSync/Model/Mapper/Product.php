@@ -33,7 +33,12 @@ class Product
     protected $_listingsUpdate;
 
     protected $_listingCondition;
-    
+
+    /**
+     * @var \Magento\Catalog\Model\Product\Media\ConfigFactory
+     */
+    private $_catalogProductMediaConfigFactory;
+
     public function __construct(
         \Reverb\ReverbSync\Model\Wrapper\Listing $modelWrapperListing,
         \Magento\CatalogInventory\Api\StockRegistryInterface $stockRegistry,
@@ -41,7 +46,8 @@ class Product
         \Reverb\ReverbSync\Model\Field\Mapping $fieldMapping,
         \Reverb\ReverbSync\Helper\Sync\Category $categoryhelper,
         \Reverb\ReverbSync\Helper\Sync\Listings\Update $linstingsUpdate,
-        \Reverb\ReverbSync\Model\Source\Listing\Condition $listingCondition
+        \Reverb\ReverbSync\Model\Source\Listing\Condition $listingCondition,
+        \Magento\Catalog\Model\Product\Media\ConfigFactory $catalogProductMediaConfigFactory
     ) {
         $this->_modelWrapperListing = $modelWrapperListing;
         $this->_stockRegistry = $stockRegistry; 
@@ -50,6 +56,7 @@ class Product
         $this->_categoryHelper = $categoryhelper;
         $this->_listingsUpdate = $linstingsUpdate;
         $this->_listingCondition = $listingCondition;
+        $this->_catalogProductMediaConfigFactory = $catalogProductMediaConfigFactory;
     }
 
 
@@ -296,7 +303,7 @@ class Product
             return null;
         }
 
-        $base_image_url = Mage::getModel('catalog/product_media_config')->getMediaUrl($product_base_image);
+        $base_image_url = $this->_catalogProductMediaConfigFactory->create()->getMediaUrl($product_base_image);
         return $base_image_url;
     }
 
