@@ -160,7 +160,7 @@ class Curl
         }
 
         $url_to_log = $this->_getOption(CURLOPT_URL);
-        if (!strcmp($this->_getOption(CURLOPT_CUSTOMREQUEST), self::PUT_CUSTOM_REQUEST_VALUE))
+        if ($this->_getOption(CURLOPT_CUSTOMREQUEST) && !strcmp($this->_getOption(CURLOPT_CUSTOMREQUEST), self::PUT_CUSTOM_REQUEST_VALUE))
         {
             $http_method_log = self::PUT_CUSTOM_REQUEST_VALUE;
             $body = $this->_getOption(CURLOPT_POSTFIELDS);
